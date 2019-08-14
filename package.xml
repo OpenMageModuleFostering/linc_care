@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
     <name>Linc_Care</name>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
     <stability>stable</stability>
     <license uri="http://www.letslinc.com/Legal/LincCareLicenseAgreement/">Linc Global Commercial License</license>
     <channel>community</channel>
@@ -59,9 +59,9 @@ Fill in the store's ID and Access Key. If you don't have these already, click th
 &lt;/ol&gt;&#xD;
 &lt;p&gt;If you have any comments or questions, please email us at support@linccare.com&lt;/p&gt;</notes>
     <authors><author><name>Linc Care Development</name><user>letslincapp</user><email>apps@letslinc.com</email></author></authors>
-    <date>2014-09-30</date>
-    <time>02:28:22</time>
-    <contents><target name="mageetc"><dir name="modules"><file name="Linc_Care.xml" hash="db51f40a404065353fec8086394b8d56"/></dir></target><target name="magecommunity"><dir name="Linc"><dir name="Care"><dir name="Block"><file name="Button.php" hash="f6b577bdf0a83d98cabeb5956b0418e2"/><file name="Faqbutton.php" hash="862a87a5d06ae5c34f1ff629f341f01c"/><file name="Widget.php" hash="122d05e6653df7031be736c595b832c3"/></dir><dir name="Model"><file name="Fulfillmentobserver.php" hash="66e2bd8d8fd46370eb7ff7d1d0c89847"/><file name="Orderobserver.php" hash="8be3cb3097bdc9becbb6af5c53a6bf09"/></dir><dir name="etc"><file name="config.xml" hash="7ff613718b4fe9d68181d8505b46a449"/><file name="system.xml" hash="351200318f9fb37020f0f3bb49887171"/></dir><file name="readme" hash="b870624d95964a9953466ad8c89bef62"/></dir></dir></target></contents>
+    <date>2014-10-02</date>
+    <time>21:13:04</time>
+    <contents><target name="magecommunity"><dir name="Linc"><dir name="Care"><dir name="Block"><file name="Button.php" hash="f6b577bdf0a83d98cabeb5956b0418e2"/><file name="Faqbutton.php" hash="862a87a5d06ae5c34f1ff629f341f01c"/><file name="Widget.php" hash="122d05e6653df7031be736c595b832c3"/></dir><dir name="Model"><file name="Fulfillmentobserver.php" hash="eb767b78fd633aee7cf06d000635c4ed"/><file name="Orderobserver.php" hash="d30b0ea8f1086530f469dc6c7a1ab404"/></dir><dir name="etc"><file name="config.xml" hash="7ff613718b4fe9d68181d8505b46a449"/><file name="system.xml" hash="351200318f9fb37020f0f3bb49887171"/></dir><file name="readme" hash="b870624d95964a9953466ad8c89bef62"/></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Linc_Care.xml" hash="db51f40a404065353fec8086394b8d56"/></dir></target></contents>
     <compatible/>
     <dependencies><required><php><min>5.1.0</min><max>6.0.0</max></php></required></dependencies>
 </package>

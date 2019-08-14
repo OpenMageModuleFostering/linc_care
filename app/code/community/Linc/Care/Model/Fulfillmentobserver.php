@@ -136,7 +136,7 @@ class Linc_Care_Model_Fulfillmentobserver
 		}
 		
 		$dataorder = array(
-			'order_code_external' => $this->order->getIncrementId(),
+			'order_code' => $this->order->getIncrementId(),
 			'carrier' => $CarrierCode,
 			'tracking_number' => $this->track->getNumber(),
 			'fulfill_date' => $this->shipment->getCreatedAt()

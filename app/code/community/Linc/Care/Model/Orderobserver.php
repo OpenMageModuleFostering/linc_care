@@ -197,7 +197,7 @@ class Linc_Care_Model_Orderobserver
 		
 		$dataorder = array(
 			'user' => $user,
-			'order_code_external' => $order->getIncrementId(),
+			'order_code' => $order->getIncrementId(),
 			'billing_address' => $addrB,
 			'shipping_address' => $addrS,
 			'purchase_date' => $order->getUpdatedAt(),
