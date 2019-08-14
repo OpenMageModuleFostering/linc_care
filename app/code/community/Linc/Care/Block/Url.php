@@ -59,7 +59,7 @@ class Linc_Care_Block_Url extends Mage_Adminhtml_Block_System_Config_Form_Field
             $disabled = "disabled";
         }
 
-        if (DEBUG) Mage::log("Url - $store_id; $url; $shop_id", null, 'register.log', true);
+        if (DBGLOG) Mage::log("Url - $store_id; $url; $shop_id", null, 'register.log', true);
 
         $html = parent::_getElementHtml($element);
         $html .= "<input type=text class='input-text required-entry validate-url' id=linccaresection_linccaregroup_url maxlength=2000 value='$url' $disabled />";

@@ -48,7 +48,7 @@ class Linc_Care_Model_Orderobserver
 			$this->client->setRawData($postData, 'application/json');
 			$response = $this->client->request();
 			
-			if (DEBUG) {
+			if (DBGLOG) {
 				$temp = $response->getStatus();
 				Mage::log("Linc_Care HTTP Status $temp", null, 'order.log', true);
 			}
@@ -56,7 +56,7 @@ class Linc_Care_Model_Orderobserver
 			if ($response->getStatus() == 201)
 			{
 				$temp = $response->getBody();
-				if (DEBUG) Mage::log("Linc_Care $temp", null, 'order.log', true);
+				if (DBGLOG) Mage::log("Linc_Care $temp", null, 'order.log', true);
 			}
 			else
 			{
@@ -87,22 +87,22 @@ class Linc_Care_Model_Orderobserver
 		
 	public function buildJson(Varien_Event_Observer $observer)
 	{
-		if (DEBUG) Mage::log("exportOrder started", null, 'order.log', true);
+		if (DBGLOG) Mage::log("exportOrder started", null, 'order.log', true);
 
 		$order = $observer->getEvent()->getOrder();
-		if (DEBUG) Mage::log("exportOrder Got order", null, 'order.log', true);
+		if (DBGLOG) Mage::log("exportOrder Got order", null, 'order.log', true);
 		$orderdata  = $order->getData();
-		if (DEBUG) Mage::log("exportOrder Got data", null, 'order.log', true);
+		if (DBGLOG) Mage::log("exportOrder Got data", null, 'order.log', true);
 		
 		$b_addr = $order->getBillingAddress();
-		if (DEBUG) 
+		if (DBGLOG) 
 		{
 			$temp = json_encode($b_addr->getData());
 			Mage::log("exportOrder got billing address $temp", null, 'order.log', true);
 		}
 	
 		$s_addr = $order->getShippingAddress();
-		if (DEBUG && $s_addr != null)
+		if (DBGLOG && $s_addr != null)
 		{
 			$temp = json_encode($s_addr->getData());
 			Mage::log("exportOrder got shipping address $temp", null, 'order.log', true);
@@ -114,10 +114,10 @@ class Linc_Care_Model_Orderobserver
 		}
 		
 		$phone = $b_addr->getTelephone();
-		if (DEBUG) Mage::log("exportOrder got phone $phone", null, 'order.log', true);
+		if (DBGLOG) Mage::log("exportOrder got phone $phone", null, 'order.log', true);
 		
 		$items = $order->getItemsCollection();
-		if (DEBUG) Mage::log("exportOrder got item collection", null, 'order.log', true);
+		if (DBGLOG) Mage::log("exportOrder got item collection", null, 'order.log', true);
 		
 		$dataitems = array();
 		foreach ($items as $item)
@@ -133,7 +133,7 @@ class Linc_Care_Model_Orderobserver
 				  'price'       => $item->getPrice(),
 				  'weight'      => $item->getWeight());
 				
-			  #if (DEBUG)
+			  #if (DBGLOG)
 			  {
 				  $temp = json_encode($dataitem);
 				  Mage::log("exportOrder built an item $temp", null, 'order.log', true);
@@ -143,7 +143,7 @@ class Linc_Care_Model_Orderobserver
 			}
 		}
 		
-		if (DEBUG) Mage::log("exportOrder built items", null, 'order.log', true);
+		if (DBGLOG) Mage::log("exportOrder built items", null, 'order.log', true);
 		
 		$user = array (
 			'user_id'    => $order->getCustomerId(),
@@ -152,7 +152,7 @@ class Linc_Care_Model_Orderobserver
 			'email'      => $order->getCustomerEmail(),
 			'phone'      => $phone);
 			
-		if (DEBUG)
+		if (DBGLOG)
 		{
 			$temp = json_encode($user);
 			Mage::log("exportOrder built user $temp", null, 'order.log', true);
@@ -168,7 +168,7 @@ class Linc_Care_Model_Orderobserver
 			'country'		=> $country->getName(),
 			'zip'			=> $b_addr->getPostcode());
 			
-		if (DEBUG)
+		if (DBGLOG)
 		{
 			$temp = json_encode($addrB);
 			Mage::log("exportOrder built billing address $temp", null, 'order.log', true);
@@ -184,7 +184,7 @@ class Linc_Care_Model_Orderobserver
 			'country'		=> $country->getName(),
 			'zip'			=> $s_addr->getPostcode());
 
-		if (DEBUG)
+		if (DBGLOG)
 		{
 			$temp = json_encode($addrS);
 			Mage::log("exportOrder built shipping address $temp", null, 'order.log', true);
@@ -201,9 +201,9 @@ class Linc_Care_Model_Orderobserver
 			'products' => $dataitems);
 		
 		$postdata = json_encode($dataorder);
-		if (DEBUG) Mage::log($postdata, null, 'order.log', true);
+		if (DBGLOG) Mage::log($postdata, null, 'order.log', true);
 
-		if (DEBUG) Mage::log("exportOrder ended", null, 'order.log', true);
+		if (DBGLOG) Mage::log("exportOrder ended", null, 'order.log', true);
 		
 		return $postdata;
 	}

@@ -5,7 +5,7 @@ class Linc_Care_Block_Adminhtml_System_Config_Form_Register extends Mage_Adminht
 {
     protected function _construct()
     {
-        if (DEBUG) Mage::log("construct called", null, 'register.log', true);
+        if (DBGLOG) Mage::log("construct called", null, 'register.log', true);
 
         parent::_construct();
         $this->setTemplate('care/system/config/register.phtml');
@@ -20,38 +20,38 @@ class Linc_Care_Block_Adminhtml_System_Config_Form_Register extends Mage_Adminht
     
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
-        if (DEBUG) Mage::log("getElementHtml called", null, 'register.log', true);
+        if (DBGLOG) Mage::log("getElementHtml called", null, 'register.log', true);
         
         return $this->_toHtml();
     }
 
     public function getAjaxRegisterUrl()
     {
-        if (DEBUG) Mage::log("getAjaxRegisterUrl called", null, 'register.log', true);
+        if (DBGLOG) Mage::log("getAjaxRegisterUrl called", null, 'register.log', true);
 
         $url = Mage::app()->getStore()->getUrl('linccare/care/register');
 
-        if (DEBUG) Mage::log("getAjaxRegisterUrl $url", null, 'register.log', true);
+        if (DBGLOG) Mage::log("getAjaxRegisterUrl $url", null, 'register.log', true);
 
         return $url;
     }
     
     public function getMerchantOnboardUrl()
     {
-        if (DEBUG) Mage::log("getMerchantOnboardUrl called", null, 'register.log', true);
+        if (DBGLOG) Mage::log("getMerchantOnboardUrl called", null, 'register.log', true);
 
         $protocol = SERVER_PROTOCOL;
         $path = SERVER_PATH;
         $url = "$protocol://care.$path/merchants";
         
-        if (DEBUG) Mage::log("getMerchantOnboardUrl returning $url", null, 'register.log', true);
+        if (DBGLOG) Mage::log("getMerchantOnboardUrl returning $url", null, 'register.log', true);
 
         return $url;
     }
 
     public function getButtonHtml()
     {
-        if (DEBUG) Mage::log("getButtonHtml called", null, 'register.log', true);
+        if (DBGLOG) Mage::log("getButtonHtml called", null, 'register.log', true);
 
         $resource = Mage::getSingleton('core/resource');
         $read = $resource->getConnection('core_read');

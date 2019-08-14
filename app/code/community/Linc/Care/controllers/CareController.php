@@ -8,7 +8,7 @@ class Linc_Care_CareController extends Mage_Adminhtml_Controller_Action
 
     public function registerAction()
     {
-        if (DEBUG) Mage::log("Care::registerAction called", null, 'register.log', true);
+        if (DBGLOG) Mage::log("Care::registerAction called", null, 'register.log', true);
         
         $url = $this->getRequest()->getParam('url');
         $email = $this->getRequest()->getParam('email');
@@ -28,8 +28,10 @@ class Linc_Care_CareController extends Mage_Adminhtml_Controller_Action
             ->setPackageName((string)Mage::getConfig()->getNode('stores/admin/design/package/name'))
             ->setTheme((string)Mage::getConfig()->getNode('stores/admin/design/theme/default'))
         ;
-        foreach (array('layout', 'template', 'skin', 'locale') as $type) {
-            if ($value = (string)Mage::getConfig()->getNode("stores/admin/design/theme/{$type}")) {
+        foreach (array('layout', 'template', 'skin', 'locale') as $type) 
+        {
+            if ($value = (string)Mage::getConfig()->getNode("stores/admin/design/theme/{$type}"))
+            {
                 Mage::getDesign()->setTheme($type, $value);
             }
         }
@@ -41,25 +43,33 @@ class Linc_Care_CareController extends Mage_Adminhtml_Controller_Action
         Mage::dispatchEvent('adminhtml_controller_action_predispatch_start', array());
         parent::preDispatch();
         $_keyErrorMsg = '';
-        if (Mage::getSingleton('admin/session')->isLoggedIn()) {
-            if ($this->getRequest()->isPost()) {
+        if (Mage::getSingleton('admin/session')->isLoggedIn()) 
+        {
+            if ($this->getRequest()->isPost()) 
+            {
                 $_isValidFormKey = $this->_validateFormKey();
                 $_keyErrorMsg = Mage::helper('adminhtml')->__('Invalid Form Key. Please refresh the page.');
-            } elseif (Mage::getSingleton('adminhtml/url')->useSecretKey()) {
+            }
+            elseif (Mage::getSingleton('adminhtml/url')->useSecretKey()) 
+            {
                 $_isValidSecretKey = $this->_validateSecretKey();
                 $_keyErrorMsg = Mage::helper('adminhtml')->__('Invalid Secret Key. Please refresh the page.');
             }
         }
 */
-        if (!$_isValidFormKey || !$_isValidSecretKey) {
+        if (!$_isValidFormKey || !$_isValidSecretKey) 
+        {
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             $this->setFlag('', self::FLAG_NO_POST_DISPATCH, true);
-            if ($this->getRequest()->getQuery('isAjax', false) || $this->getRequest()->getQuery('ajax', false)) {
+            if ($this->getRequest()->getQuery('isAjax', false) || $this->getRequest()->getQuery('ajax', false)) 
+            {
                 $this->getResponse()->setBody(Mage::helper('core')->jsonEncode(array(
                     'error' => true,
                     'message' => $_keyErrorMsg
                 )));
-            } else {
+            }
+            else
+            {
                 $this->_redirect( Mage::getSingleton('admin/session')->getUser()->getStartupPageUrl() );
             }
             return $this;
@@ -67,7 +77,8 @@ class Linc_Care_CareController extends Mage_Adminhtml_Controller_Action
 
         if ($this->getRequest()->isDispatched()
             && $this->getRequest()->getActionName() !== 'denied'
-            && !$this->_isAllowed()) {
+            && !$this->_isAllowed())
+        {
             $this->_forward('denied');
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             return $this;
@@ -76,12 +87,14 @@ class Linc_Care_CareController extends Mage_Adminhtml_Controller_Action
         if (!$this->getFlag('', self::FLAG_IS_URLS_CHECKED)
             && !$this->getRequest()->getParam('forwarded')
             && !$this->_getSession()->getIsUrlNotice(true)
-            && !Mage::getConfig()->getNode('global/can_use_base_url')) {
+            && !Mage::getConfig()->getNode('global/can_use_base_url')) 
+        {
             //$this->_checkUrlSettings();
             $this->setFlag('', self::FLAG_IS_URLS_CHECKED, true);
         }
         
-        if (is_null(Mage::getSingleton('adminhtml/session')->getLocale())) {
+        if (is_null(Mage::getSingleton('adminhtml/session')->getLocale())) 
+        {
             Mage::getSingleton('adminhtml/session')->setLocale(Mage::app()->getLocale()->getLocaleCode());
         }
 
@@ -139,7 +152,7 @@ class Linc_Care_CareController extends Mage_Adminhtml_Controller_Action
 			$temp = $response->getStatus();			
 			$this->getResponse()->setHeader('HTTP/1.1', $temp);
 			
-			if (DEBUG) 
+			if (DBGLOG) 
 			{
 				Mage::log("Care::register HTTP Status $temp", null, 'register.log', true);
 			}
@@ -147,7 +160,7 @@ class Linc_Care_CareController extends Mage_Adminhtml_Controller_Action
 			if ($temp < 400)
 			{
 				$temp = $response->getBody();
-				if (DEBUG) Mage::log("Care::register $temp", null, 'register.log', true);
+				if (DBGLOG) Mage::log("Care::register $temp", null, 'register.log', true);
 				
 				$array = Mage::helper('core')->jsonDecode($temp);
 				
@@ -210,8 +223,8 @@ class Linc_Care_CareController extends Mage_Adminhtml_Controller_Action
 		
 		$postdata = json_encode($dataorder);
 
-		if (DEBUG) Mage::log("Care::register buildJson ended", null, 'register.log', true);
-		if (DEBUG) Mage::log($postdata, null, 'register.log', true);
+		if (DBGLOG) Mage::log("Care::register buildJson ended", null, 'register.log', true);
+		if (DBGLOG) Mage::log($postdata, null, 'register.log', true);
 		
 		return $postdata;
 	}

@@ -6,12 +6,10 @@
     //<![CDATA[
     function register()
     {
-//      alert('Register called');
         var configForm = $('config_edit_form');
         var validator = new Validation(configForm);
         if (validator.validate())
         {
-//          alert('Validate succeeded');
             var url = document.getElementById('linccaresection_linccaregroup_url').value;
             var email = document.getElementById('linccaresection_linccaregroup_email').value;
             var pw = document.getElementById('linccaresection_linccaregroup_password').value;
@@ -29,14 +27,12 @@
                     },
                     onSuccess:  function(transport)
                                 {
-                                    //alert('Success - ' + transport.responseText);   
                                     var linc_url = '<?php echo $this->getMerchantOnboardUrl() ?>' +
                                         "?ecommerce=" + transport.responseJSON.ecommerce +
                                         "&shop_id=" + transport.responseJSON.store_id +
                                         "&url=" + transport.responseJSON.url + 
                                         "&email=" + transport.responseJSON.email;
                                     
-                                    //alert('OnSuccess - ' + linc_url);                                        
                                     popWin(linc_url, '_blank');
                                     location.reload();
                                 }.bind(this),
@@ -44,16 +40,8 @@
                                 {
                                     alert(transport.responseText);
                                 }.bind(this),                    
-//                  onComplete: function(transport)
-//                              {
-//                                  alert('Complete - ' + transport.responseText);
-//                              }.bind(this),                    
                 });
         }
-//      else
-//      {
-//          alert('Validate failed.');
-//      }
     }
     //]]>
 </script>

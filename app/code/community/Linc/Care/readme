@@ -11,10 +11,10 @@ For those of you installing manually:
 6. Enter the store's url and admin email along with a password, then click register.
 7. When the Linc Care Merchant portal is launched, fill in the requested information.
 8. Go to System/Transactional Email
-9. If you have a have custom emails already, edit it and insert {{block type='linccare/widget' order=$order}} where you want the Linc Care widget to appear. Then save the template and skip to step 11
+9. If you have a have custom emails already, edit it and insert {{block type='care/widget' order=$order}} where you want the Linc Care widget to appear. Then save the template and skip to step 11
 10. If not Click the Add New Template button.
 11. On the next page select New Order from the Template dropdown and click the Load Template button
-12. Name the new template and insert {{block type='linccare/widget' order=$order}} where you want the Linc Care widget to appear. Then save the template.
+12. Name the new template and insert {{block type='care/widget' order=$order}} where you want the Linc Care widget to appear. Then save the template.
 13. Repeat for any other order-based emails you want connected to Linc Care. We suggest New Order Guest
 14. Go to System / Sales / Sales Email / Order and select the new templates for New Order Confirmation Email
 15. Save the configuration

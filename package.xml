@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <package>
     <name>Linc_Care</name>
-    <version>1.1.2</version>
+    <version>1.1.3</version>
     <stability>stable</stability>
-    <license uri="http://www.letslinc.com/legal/LincCareLicenseAgreement/">Linc Global Commercial License</license>
+    <license uri="http://www.letslinc.com/legal/linccarelicenseagreement/">Linc Global Commercial License</license>
     <channel>community</channel>
     <extends/>
     <summary>Linc Care streamlines a personal and contextual self-serviced customer care experience that drives loyalty.</summary>
@@ -38,26 +38,24 @@ Here is one possible process for installing our extension.&#xD;
 &#xD;
 For those of you installing manually:&#xD;
 1. Go to System / Magento Connect / Magento Connect Manager&#xD;
-2. If you're installing via the Magento Connect website, follow the normal procedure then skip to step 5&#xD;
-3. If you're installing manually, download the package from http://care.letslinc.com/downloads/Linc_Care-1.1.2.tgz&#xD;
-4. Click the Browse button and select the file you just downloaded, the click the Upload button.&#xD;
-5. Go to System/Configuration/Linc Care/General&#xD;
-6. Enter the store's url and admin email along with a password, then click register.&#xD;
-7. When the Linc Care Merchant portal is launched, fill in the requested information.&#xD;
-8. Go to System/Transactional Email&#xD;
-9. If you have a have custom emails already, edit it and insert {{block type='linccare/widget' order=$order}} where you want the Linc Care widget to appear. Then save the template and skip to step 11&#xD;
-10. If not Click the Add New Template button.&#xD;
-11. On the next page select New Order from the Template dropdown and click the Load Template button&#xD;
-12. Name the new template and insert {{block type='linccare/widget' order=$order}} where you want the Linc Care widget to appear. Then save the template.&#xD;
-13. Repeat for any other order-based emails you want connected to Linc Care. We suggest New Order Guest&#xD;
-14. Go to System / Sales / Sales Email / Order and select the new templates for New Order Confirmation Email&#xD;
-15. Save the configuration&#xD;
+2. Follow the normal procedure for installing an extension&#xD;
+3. Go to System / Configuration / Linc Care / General&#xD;
+4. Enter the store's url and admin email along with a password, then click register.&#xD;
+5. When the Linc Care Merchant portal is launched, fill in the requested information.&#xD;
+6. Go to System / Transactional Email&#xD;
+7. If you have a have custom New Order template already, edit it and insert {{block type='care/widget' order=$order}} where you want the Linc Care widget to appear. Then save the template and skip to step 10&#xD;
+8. If not Click the Add New Template button.&#xD;
+9. On the next page select New Order from the Template dropdown and click the Load Template button&#xD;
+10. Name the new template and insert {{block type='care/widget' order=$order}} where you want the Linc Care widget to appear. Then save the template.&#xD;
+11. Repeat for any other order-based emails you want connected to Linc Care. We suggest the New Order Guest template as well.&#xD;
+12. Go to System / Sales / Sales Email / Order and select the new templates for New Order Confirmation Email&#xD;
+13. Save the configuration&#xD;
 &#xD;
-If you have any comments or questions, please email us at linc-care-issues-magento@letslinc.com</notes>
+If you have any comments or questions, please email us at support-magento@letslinc.com</notes>
     <authors><author><name>Linc Care</name><user>letslincapp</user><email>apps@letslinc.com</email></author></authors>
-    <date>2014-11-18</date>
-    <time>01:44:38</time>
-    <contents><target name="mageetc"><dir name="modules"><file name="Linc_Care.xml" hash="f9738b6f4a087a40329f646a95afd4e7"/></dir></target><target name="magecommunity"><dir name="Linc"><dir name="Care"><dir name="Block"><dir name="Adminhtml"><dir name="System"><dir name="Config"><dir name="Form"><file name="Register.php" hash="cf5b1496e1f4d4fa111a3019e499fc16"/></dir></dir></dir></dir><file name="Confirm.php" hash="c5802e17ab99fe29759d4f0c3b61c16d"/><file name="Email.php" hash="8f6eb60dd06f7258c842377cb92bec07"/><file name="Faqbutton.php" hash="e9804ff3824aaaa5383af0f97fc75c1b"/><file name="Note.php" hash="637733c4a7ad19ef66b9db1d75c28b8d"/><file name="Pwd.php" hash="7dbe6f455456f06cb47ebdd072bdbd7f"/><file name="Url.php" hash="3a0fd1cc64646c14eb5183a05523879e"/><file name="Widget.php" hash="022d5247786710a94d159773f485421f"/></dir><dir name="Helper"><file name="Data.php" hash="34aec0a0ed4d5a1652b46fb7fe54707d"/></dir><dir name="Model"><file name="Fulfillmentobserver.php" hash="eeca57985d47973dd0b1e3853960e72a"/><file name="Orderobserver.php" hash="a652ef5211ef38fdc2a413a543ef312d"/></dir><file name="common.php" hash="31f91dd2a7df5e436de0732a45d90d0b"/><dir name="controllers"><file name="CareController.php" hash="f776db586f41a51d640ed18cb00aec95"/><file name="CareController.php~" hash="90c332b395c8a585fb0434b84e2efce1"/></dir><dir name="etc"><file name="config.xml" hash="c8a37cba285ae751bbc6f78b7cee54eb"/><file name="config.xml~" hash="87d37abe79dc48827b800d03767f53f8"/><file name="system.xml" hash="95036d9df5911e0c0d2e6db996a4bbff"/><file name="system.xml~" hash="aa589277ea49b5dfefadbe6ff8121ae8"/></dir><file name="readme" hash="98490fe600e3d2b890a25746f17d5960"/></dir></dir></target><target name="magedesign"><dir name="adminhtml"><dir name="default"><dir name="default"><dir name="template"><dir name="care"><dir name="system"><dir name="config"><file name="register.phtml" hash="21bb40b68538eae06facc2c14e8183cc"/></dir></dir></dir></dir></dir></dir></dir></target></contents>
+    <date>2015-01-27</date>
+    <time>21:58:14</time>
+    <contents><target name="mageetc"><dir name="modules"><file name="Linc_Care.xml" hash="8dd7784200f8ff440a0c970d89db190d"/></dir></target><target name="magecommunity"><dir name="Linc"><dir name="Care"><dir name="Block"><dir name="Adminhtml"><dir name="System"><dir name="Config"><dir name="Form"><file name="Register.php" hash="d661f3c74984cd49999f20ae0ce93745"/></dir></dir></dir></dir><file name="Confirm.php" hash="c5802e17ab99fe29759d4f0c3b61c16d"/><file name="Email.php" hash="8f6eb60dd06f7258c842377cb92bec07"/><file name="Faqbutton.php" hash="e9804ff3824aaaa5383af0f97fc75c1b"/><file name="Note.php" hash="637733c4a7ad19ef66b9db1d75c28b8d"/><file name="Pwd.php" hash="7dbe6f455456f06cb47ebdd072bdbd7f"/><file name="Url.php" hash="98d81a2b8c1fbbccc3928cdc4c8d9a5b"/><file name="Widget.php" hash="5ece46a209769fc75e64b3d64737c698"/></dir><dir name="Helper"><file name="Data.php" hash="34aec0a0ed4d5a1652b46fb7fe54707d"/></dir><dir name="Model"><file name="Fulfillmentobserver.php" hash="9873507cc5ddb9370f4ce5033cd43345"/><file name="Orderobserver.php" hash="7a80b9c07e1bd32e65e373e0a31db429"/><dir name="Resource"><file name="Setup.php" hash="7169ea333f6a42a0edc86effa4a11195"/></dir></dir><file name="common.php" hash="e8aff39650836495a8c3664b2276b497"/><dir name="controllers"><file name="CareController.php" hash="5c65bf047fcddc87ad7f3a2ebff0e924"/></dir><dir name="etc"><file name="config.xml" hash="d958e772d968f745d6263926d518d05e"/><file name="system.xml" hash="95036d9df5911e0c0d2e6db996a4bbff"/></dir><file name="readme" hash="01f2eed106a3cf9d67bb200665b22c48"/><dir name="sql"><dir name="linc_setup"><file name="mysql4-install-1.1.2.php" hash="d193b9c9648e4e5a56673d9cb1532589"/></dir></dir></dir></dir></target><target name="magedesign"><dir name="adminhtml"><dir name="default"><dir name="default"><dir name="template"><dir name="care"><dir name="system"><dir name="config"><file name="register.phtml" hash="0efab1b7ae4c930961a396ebc9c48d2b"/></dir></dir></dir></dir></dir></dir></dir></target></contents>
     <compatible/>
     <dependencies><required><php><min>5.1.0</min><max>6.0.0</max></php></required></dependencies>
 </package>

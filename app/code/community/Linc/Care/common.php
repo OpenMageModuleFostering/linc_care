@@ -1,5 +1,5 @@
 <?php
-define('DEBUG', false);
-define('SERVER_PROTOCOL', 'https');
-define('SERVER_PATH', 'letslinc.com');
+define('DBGLOG', true);
+define('SERVER_PROTOCOL', 'http');
+define('SERVER_PATH', 'localhost:8000');
 ?>
