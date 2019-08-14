@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<config>
+	<sections>
+		<general>
+			<groups>
+				<store_information>
+					<fields>
+						<enter_store_id translate="label">
+							<sort_order>200</sort_order>
+							<label>Enter your Linc Care Store ID</label>
+							<frontend_type>Text</frontend_type>
+							<show_in_store>1</show_in_store>
+						</enter_store_id>
+						<enter_access_key translate="label">
+							<sort_order>201</sort_order>
+							<label>Enter your Linc Care Access Key</label>
+							<frontend_type>Text</frontend_type>
+							<show_in_store>1</show_in_store>
+						</enter_access_key>
+						<linktolinccare translate="label">
+							<sort_order>202</sort_order>
+							<label>Go to Linc Care</label>
+							<frontend_type>button</frontend_type>
+							<frontend_model>care/button</frontend_model>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[If you don't have a Linc Care Store ID or Access Key, click to sign up as a Linc Care client.]]></comment>
+						</linktolinccare>
+						<linktohelp translate="label">
+							<sort_order>203</sort_order>
+							<label>Learn more...</label>
+							<frontend_type>button</frontend_type>
+							<frontend_model>care/faqbutton</frontend_model>
+							<show_in_store>1</show_in_store>
+						</linktohelp>
+					</fields>
+				</store_information>
+			</groups>
+		</general>
+	</sections>
+</config>

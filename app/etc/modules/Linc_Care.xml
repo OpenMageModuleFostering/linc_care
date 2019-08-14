@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Linc Care
+ *
+ * NOTICE OF LICENSE
+ *
+ * The Linc Care Extension for Magento is in development and no license is granted for any purpose.
+ *
+ * @category    Linc
+ * @package     Linc_Care
+ * @copyright   Copyright (c) 2014 Linc Global, Inc. (http://www.letslinc.com)
+ * @license     http://www.letslinc.com/Legal/LincCareLicenseAgreement/  Linc Global Commecial Licence
+ */
+-->
+<config>
+	<modules>
+		<Linc_Care>
+			<active>true</active>
+			<codePool>community</codePool>
+		</Linc_Care>
+	</modules>
+</config>

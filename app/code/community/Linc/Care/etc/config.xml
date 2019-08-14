@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Module configuration
+ *
+ * @author Rick Murtagh, Linc Global, Inc.
+ *
+ */
+-->
+<config>
+	<modules>
+		<Linc_Care>
+			<version>1.0.0</version>
+		</Linc_Care>
+	</modules>
+	<global>
+		<models>
+			<care>
+				<class>Linc_Care_Model</class>
+			</care>
+		</models>
+		<blocks>
+			<care>
+				<class>Linc_Care_Block</class>
+			</care>
+		</blocks>
+		<events>
+			<sales_order_place_after>
+				<observers>
+					<linc_care>
+						<class>care/orderobserver</class>
+						<method>exportOrder</method>
+						<type>singleton</type>
+					</linc_care>
+				</observers>
+			</sales_order_place_after>
+			<sales_order_shipment_track_save_after>
+				<observers>
+					<linc_care>
+						<class>care/fulfillmentobserver</class>
+						<method>exportFulfillment</method>
+						<type>singleton</type>
+					</linc_care>
+				</observers>
+			</sales_order_shipment_track_save_after>
+		</events>
+	</global>
+</config>
