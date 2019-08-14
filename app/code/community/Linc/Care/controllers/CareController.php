@@ -196,9 +196,9 @@ class Linc_Care_CareController extends Mage_Adminhtml_Controller_Action
 	public function connectToLincCare()
 	{
 		$this->client = new Zend_Http_Client();
-        //  $protocol = SERVER_PROTOCOL; For register, the protocol is always http
+        $protocol = SERVER_PROTOCOL;
         $url = SERVER_PATH;
-		$this->client->setUri("http://pub-api.$url/v1/register");
+		$this->client->setUri("$protocol://pub-api.$url/v1/register");
 		
 		$this->client->setConfig(array(
             'maxredirects' => 0,
