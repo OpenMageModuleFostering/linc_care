@@ -147,7 +147,8 @@ class Linc_Care_CareController extends Mage_Adminhtml_Controller_Action
 			if ($temp < 400)
 			{
 				$temp = $response->getBody();
-				if (DEBUG) Mage::log("Care::register $temp", null, 'register.log', true);
+				#if (DEBUG) 
+				Mage::log("Care::register $temp", null, 'register.log', true);
 				
 				$array = Mage::helper('core')->jsonDecode($temp);
 				
@@ -167,15 +168,7 @@ class Linc_Care_CareController extends Mage_Adminhtml_Controller_Action
 				$temp = $response->getBody();
 				preg_match('/<pre class="exception_value">(.*?)<\/pre>/', $temp, $m);
 				 
-				if (count($m) >= 2)
-				{
-				    $this->getResponse()->setBody($m[1]);
-				}
-				else
-				{
-				    Mage::log("Care::register unknown error - $temp", null, 'register.log', true);
-				    $this->getResponse()->setBody('The server had an unknown error. Please contact support@letslinc.com');
-				}
+				$this->getResponse()->setBody($m[1]);
 			}
 		}
 	}

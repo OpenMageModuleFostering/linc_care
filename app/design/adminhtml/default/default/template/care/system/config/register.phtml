@@ -29,15 +29,16 @@
                     },
                     onSuccess:  function(transport)
                                 {
-                                    alert('Success - ' + transport.responseText);   
+                                    //alert('Success - ' + transport.responseText);   
                                     var linc_url = '<?php echo $this->getMerchantOnboardUrl() ?>' +
                                         "?ecommerce=" + transport.responseJSON.ecommerce +
                                         "&shop_id=" + transport.responseJSON.store_id +
                                         "&url=" + transport.responseJSON.url + 
                                         "&email=" + transport.responseJSON.email;
                                     
-                                    alert('OnSuccess - ' + linc_url);                                        
+                                    //alert('OnSuccess - ' + linc_url);                                        
                                     popWin(linc_url, '_blank');
+                                    location.reload();
                                 }.bind(this),
                     onFailure:  function(transport)
                                 {

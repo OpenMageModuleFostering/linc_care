@@ -61,7 +61,6 @@
 		    </care>
 		</helpers>
 	</global>
-	<adminhtml>
     <acl>
         <resources>
             <admin>
@@ -81,5 +80,4 @@
             </admin>
         </resources>
     </acl>
-    </adminhtml>
 </config>

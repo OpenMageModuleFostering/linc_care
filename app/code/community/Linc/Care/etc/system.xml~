@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <tabs>
+        <linccaretab translate="label" module="linc_care">
+            <label>Linc Care</label>
+            <sort_order>100</sort_order>
+        </linccaretab>
+    </tabs>
+	<sections>
+		<linccaresection translate="label" module="linc_care">
+		    <label>General</label>
+		    <tab>linccaretab</tab>
+		    <frontend_type>text</frontend_type>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+			<groups>
+				<linccaregroup translate="label">
+				    <label>General</label>
+				    <frontend_type>text</frontend_type>
+                    <sort_order>3</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>  
+                    <fields>
+					    <message translate="label">
+							<sort_order>200</sort_order>
+							<frontend_type>label</frontend_type>
+							<frontend_model>care/note</frontend_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+					    </message>
+						<url translate="label">
+							<sort_order>201</sort_order>
+							<label for="Url" class="required">Enter your store URL</label>
+							<frontend_type>label</frontend_type>
+							<frontend_model>care/url</frontend_model>
+							<validate>required-entry validate-url</validate>
+							<show_in_store>1</show_in_store>
+						</url>
+						<email translate="label">
+							<sort_order>202</sort_order>
+							<label for="Email" class="required">Enter your administrator email address</label>
+							<frontend_type>label</frontend_type>
+							<frontend_model>care/email</frontend_model>
+							<validate>required-entry validate-email</validate>
+							<show_in_store>1</show_in_store>
+						</email>
+						<password translate="label">
+							<sort_order>203</sort_order>
+							<label for="Password" class="required">Enter a password</label>
+							<frontend_type>label</frontend_type>
+							<frontend_model>care/pwd</frontend_model>
+							<validate>required-entry validate-password</validate>
+							<show_in_store>1</show_in_store>
+						</password>
+						<confirm translate="label">
+							<sort_order>204</sort_order>
+							<label for="Confirm Password" class="required">Enter a password</label>
+							<frontend_type>label</frontend_type>
+							<frontend_model>care/confirm</frontend_model>
+							<show_in_store>1</show_in_store>
+							<validate>required-entry validate-cpassword</validate>
+						</confirm>
+						<linktolinccare translate="label">
+							<sort_order>205</sort_order>
+							<label>Fill out the fields above and click to register</label>
+							<frontend_type>button</frontend_type>
+							<frontend_model>care/adminhtml_system_config_form_register</frontend_model>
+							<show_in_store>1</show_in_store>
+						</linktolinccare>
+						<linktoinfo translate="label">
+							<sort_order>206</sort_order>
+							<label>Learn more...</label>
+							<frontend_type>button</frontend_type>
+							<frontend_model>care/faqbutton</frontend_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</linktoinfo>
+					</fields>
+				</linccaregroup>
+			</groups>
+		</linccaresection>
+	</sections>
+</config>
