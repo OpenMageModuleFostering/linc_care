@@ -63,22 +63,25 @@ class Linc_Care_Block_Widget  extends Mage_Core_Block_Abstract
             $baseurl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).'catalog/product';
             foreach ($items as $item)
             {
-                $product = Mage::getModel('catalog/product')->load($item->getProduct()->getId());
-                if ($product->isVisibleInSiteVisibility())
+                if ($item && $item->getProduct())
                 {
-                    $imgurl = $baseurl.$product->getImage();
-
-                    if ($query != "")
+                    $product = Mage::getModel('catalog/product')->load($item->getProduct()->getId());
+                    if ($product->isVisibleInSiteVisibility())
                     {
-                        $query .= "&";
-                    }
+                        $imgurl = $baseurl.$product->getImage();
 
-                    $query .= "q=".$item->getQtyOrdered();
-                    $query .= "&p=".$product->getId();
-                    $query .= "&pp=".$item->getPrice();
-                    $query .= "&w=".$item->getWeight();
-                    $query .= "&i=".urlencode($imgurl);
-                    $query .= "&n=".urlencode($item->getName());
+                        if ($query != "")
+                        {
+                            $query .= "&";
+                        }
+
+                        $query .= "q=".$item->getQtyOrdered();
+                        $query .= "&p=".$product->getId();
+                        $query .= "&pp=".$item->getPrice();
+                        $query .= "&w=".$item->getWeight();
+                        $query .= "&i=".urlencode($imgurl);
+                        $query .= "&n=".urlencode($item->getName());
+                    }
                 }
             }
 
