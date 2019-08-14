@@ -61,7 +61,7 @@ $dataorder = array(
     'support_name' => Mage::getStoreConfig('trans_email/ident_support/name'),
     'support_email' => Mage::getStoreConfig('trans_email/ident_support/email'),
     'url' => Mage::app()->getStore()->getHomeUrl(),
-    'phone' => age::getStoreConfig('general/store_information/phone'));
+    'phone' => Mage::getStoreConfig('general/store_information/phone'));
 		
 $postdata = json_encode($dataorder);
 $client->setRawData($postData, 'application/json');
