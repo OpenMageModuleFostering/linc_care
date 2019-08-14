@@ -1,4 +1,5 @@
 <?php
+require_once "Linc/Care/common.php";
 
 class Linc_Care_Model_Fulfillmentobserver
 {
@@ -7,7 +8,6 @@ class Linc_Care_Model_Fulfillmentobserver
 
 	public $store_id = null;
 	public $accessToken = null;
-	public $ecare_url = "care.letslinc.com";
 	
 	public $track = null;
 	public $store = null;
@@ -15,52 +15,50 @@ class Linc_Care_Model_Fulfillmentobserver
 	public $order = null;
 	public $carrier = null;
 	
-	public $debug = FALSE;
-	
 	public function exportFulfillment(Varien_Event_Observer $observer)
 	{
-		if ($this->debug) Mage::log("Fulfillmentobserver::exportFulfillment started", null, 'fullfillment.log', true);
+		if (DEBUG) Mage::log("Fulfillmentobserver::exportFulfillment started", null, 'fullfillment.log', true);
 		
 		$this->initializeObjects($observer);
 		if ($this->accessToken != null)
 		{
-			if ($this->debug) Mage::log("Fulfillmentobserver::exportFulfillment building the JSON", null, 'fullfillment.log', true);
+			if (DEBUG) Mage::log("Fulfillmentobserver::exportFulfillment building the JSON", null, 'fullfillment.log', true);
 			$post_data_json = $this->buildJson($observer);
 			
-			if ($this->debug) Mage::log("Fulfillmentobserver::exportFulfillment making the API call", null, 'fullfillment.log', true);
+			if (DEBUG) Mage::log("Fulfillmentobserver::exportFulfillment making the API call", null, 'fullfillment.log', true);
 			$this->sendFulfillment($post_data_json);
 			
-			if ($this->debug) Mage::log("Fulfillmentobserver::exportFulfillment ending", null, 'fullfillment.log', true);
+			if (DEBUG) Mage::log("Fulfillmentobserver::exportFulfillment ending", null, 'fullfillment.log', true);
 		}
 	}
 	
 	public function initializeObjects($observer)
 	{
-		if ($this->debug) Mage::log("Fulfillmentobserver::initializeObjects getting the track", null, 'fullfillment.log', true);
+		if (DEBUG) Mage::log("Fulfillmentobserver::initializeObjects getting the track", null, 'fullfillment.log', true);
 		$this->track = $observer->getTrack();
 		
-		if ($this->debug) Mage::log("Fulfillmentobserver::initializeObjects getting the store", null, 'fullfillment.log', true);
+		if (DEBUG) Mage::log("Fulfillmentobserver::initializeObjects getting the store", null, 'fullfillment.log', true);
 		$this->store = $this->track->getStore();
 			
-		if ($this->debug) Mage::log("Fulfillmentobserver::initializeObjects getting shipment", null, 'fullfillment.log', true);
+		if (DEBUG) Mage::log("Fulfillmentobserver::initializeObjects getting shipment", null, 'fullfillment.log', true);
 		$this->shipment  = $this->track->getShipment();
 		
-		if ($this->debug) Mage::log("Fulfillmentobserver::initializeObjects getting order", null, 'fullfillment.log', true);
+		if (DEBUG) Mage::log("Fulfillmentobserver::initializeObjects getting order", null, 'fullfillment.log', true);
 		$this->order  = $this->shipment->getOrder();
 		
-		if ($this->debug) Mage::log("Fulfillmentobserver::initializeObjects getting carrier", null, 'fullfillment.log', true);
+		if (DEBUG) Mage::log("Fulfillmentobserver::initializeObjects getting carrier", null, 'fullfillment.log', true);
 		$this->carrier = $this->order->getShippingCarrier();
 
-		if ($this->debug) Mage::log("Fulfillmentobserver::initializeObjects getting the store id", null, 'fullfillment.log', true);
+		if (DEBUG) Mage::log("Fulfillmentobserver::initializeObjects getting the store id", null, 'fullfillment.log', true);
 		$this->store_id = $this->store->getConfig('general/store_information/enter_store_id');
 
-		if ($this->debug) Mage::log("Fulfillmentobserver::exportFulfillment getting the token", null, 'fullfillment.log', true);
-		$this->accessToken = $this->store->getConfig('general/store_information/enter_access_key');
+		if (DEBUG) Mage::log("Fulfillmentobserver::exportFulfillment getting the token", null, 'fullfillment.log', true);
+	    $this->accessToken = Mage::getStoreConfig('linc_access_key', $store_id);
 	}
 	
 	public function sendFulfillment($postData)
 	{
-		if ($this->debug) Mage::log("Fulfillmentobserver::sendFulfillment started", null, 'fullfillment.log', true);
+		if (DEBUG) Mage::log("Fulfillmentobserver::sendFulfillment started", null, 'fullfillment.log', true);
 		
 		if ($this->client == null)
 		{
@@ -106,10 +104,12 @@ class Linc_Care_Model_Fulfillmentobserver
 	
 	public function connectToLincCare()
 	{
-		if ($this->debug) Mage::log("Fulfillmentobserver::connectToLincCare started", null, 'fullfillment.log', true);
+		if (DEBUG) Mage::log("Fulfillmentobserver::connectToLincCare started", null, 'fullfillment.log', true);
 		
 		$this->client = new Zend_Http_Client();
-		$this->client->setUri("https://".$this->ecare_url."/v1/fulfillment");
+        $protocol = SERVER_PROTOCOL;
+        $url = SERVER_PATH;
+		$this->client->setUri("$protocol://pub-api.$url/v1/fulfillment");
 		
 		$this->client->setConfig(array(
 			'maxredirects'	=> 0,
@@ -125,7 +125,7 @@ class Linc_Care_Model_Fulfillmentobserver
 		
 	public function buildJson(Varien_Event_Observer $observer)
 	{
-		if ($this->debug) Mage::log("Fulfillmentobserver::buildJson started", null, 'fullfillment.log', true);
+		if (DEBUG) Mage::log("Fulfillmentobserver::buildJson started", null, 'fullfillment.log', true);
 		
 		$postdata = "";
 		$CarrierCode = "";
@@ -143,9 +143,9 @@ class Linc_Care_Model_Fulfillmentobserver
 			);
 	
 		$postdata = json_encode($dataorder);
-		if ($this->debug) Mage::log($postdata, null, 'fullfillment.log', true);
+		if (DEBUG) Mage::log($postdata, null, 'fullfillment.log', true);
 
-		if ($this->debug) Mage::log("buildJson ended", null, 'fullfillment.log', true);
+		if (DEBUG) Mage::log("buildJson ended", null, 'fullfillment.log', true);
 	
 		return $postdata;
 	}

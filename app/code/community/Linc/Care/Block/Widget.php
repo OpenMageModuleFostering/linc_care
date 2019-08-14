@@ -1,18 +1,18 @@
 <?php
+require_once "Linc/Care/common.php";
 
 class Linc_Care_Block_Widget  extends Mage_Core_Block_Abstract
 {
-    public $storeId = null;
+    public $shop_id = null;
 
     protected function _toHtml()
     {
         $html = "";
-        if ($this->storeId == null)
-        {
-            $this->storeId = Mage::getStoreConfig('general/store_information/enter_store_id');
-        }
+        
+        $store_id = Mage::app->GetCurrentStore()->getId();
+        $shop_id = Mage::getStoreConfig('linc_shop_id', $store_id);
 
-        if ($this->storeId != null)
+        if ($shop_id != null)
         {
             $order = $this->getOrder();
             if ($order)
@@ -37,8 +37,8 @@ class Linc_Care_Block_Widget  extends Mage_Core_Block_Abstract
                         $query .= "&p=".$product->getId();
                         $query .= "&pp=".$item->getPrice();
                         $query .= "&w=".$item->getWeight();
-                        $query .= "&i=".$imgurl;
-                        $query .= "&n=".$item->getName();
+                        $query .= "&i=".$this->urlencode($imgurl);
+                        $query .= "&n=".$this->urlencode($item->getName());
                     }
                 }
 
@@ -49,39 +49,43 @@ class Linc_Care_Block_Widget  extends Mage_Core_Block_Abstract
                     $s_addr = $order->getBillingAddress();
                 }
 
-                $query .= "&a1=".$s_addr->getStreet1();
-                $query .= "&a2=".$s_addr->getStreet2();
-                $query .= "&au=".$s_addr->getCountry();
-                $query .= "&ac=".$s_addr->getCity();
-                $query .= "&as=".$s_addr->getRegion();
-                $query .= "&az=".$s_addr->getPostcode();
-                $query .= "&fn=".$order->getCustomerFirstname();
-                $query .= "&ln=".$order->getCustomerLastname();
-                $query .= "&e=".$order->getCustomerEmail();
-                $query .= "&g=".$order->getGrandTotal();
-                $query .= "&o=".$order->getIncrementId();
-                $query .= "&osi=".$order->getIncrementId();
-                $query .= "&pd=".$order->getUpdatedAt('long');
-                $query .= "&ph=".$s_addr->getTelephone();
-                $query .= "&shop_id=".$this->storeId;
+                $query .= "&a1=".$this->urlencode($s_addr->getStreet1());
+                $query .= "&a2=".$this->urlencode($s_addr->getStreet2());
+                $query .= "&au=".$this->urlencode($s_addr->getCountry());
+                $query .= "&ac=".$this->urlencode($s_addr->getCity());
+                $query .= "&as=".$this->urlencode($s_addr->getRegion());
+                $query .= "&az=".$this->urlencode($s_addr->getPostcode());
+                $query .= "&fn=".$this->urlencode($order->getCustomerFirstname());
+                $query .= "&ln=".$this->urlencode($order->getCustomerLastname());
+                $query .= "&e=".$this->urlencode($order->getCustomerEmail());
+                $query .= "&g=".$this->urlencode($order->getGrandTotal());
+                $query .= "&o=".$this->urlencode($order->getIncrementId());
+                $query .= "&osi=".$this->urlencode($order->getIncrementId());
+                $query .= "&pd=".$this->urlencode($order->getUpdatedAt('long'));
+                $query .= "&ph=".$this->urlencode($s_addr->getTelephone());
+                $query .= "&shop_id=".$this->urlencode($shop_id);
                 $query .= "&source=email";
-                $query .= "&viewer=".$order->getCustomerEmail();
+                $query .= "&viewer=".$this->urlencode($order->getCustomerEmail());
                 $query .= "&v=2";
 
-                $html  = "<img src='https://care.letslinc.com/user_activity?";
+                $protocol = SERVER_PROTOCOL;
+                $url = SERVER_PATH;
+                $html  = "<img src='$protocol://care.$url/user_activity?";
                 $html .= $query."&activity=widget_impression' border='0' height='1' width='1'>";
-                $html .= "<a href='https://care.letslinc.com/home?";
-                $html .= $query."'><img src='https://care.letslinc.com/widget_image?";
+                $html .= "<a href='$protocol://care.$url/home?";
+                $html .= $query."'><img src='$protocol://care.$url/widget_image?";
                 $html .= $query."&widget=0'></a>";
 
                 //Mage::log("Widget complete - $html", null, 'order.log', true);
             }
             else
             {
-                $query .= "shop_id=".$this->storeId;
-                $html  = "<a href='https://care.letslinc.com/home?";
-                $html .= $query."'><img src='https://care.letslinc.com/widget_image?";
-                $html .= $query."&widget=0'></a>";
+                $protocol = SERVER_PROTOCOL;
+                $url = SERVER_PATH;
+                $query .= "shop_id=".$shop_id;
+                $html  = "<a href='$protocol://care.$url/home?";
+                $html .= $query."'><img src='$protocol://care.$url/widget_image?";
+                $html .= $query."&v=2&widget=0'></a>";
             }
         }
         else

@@ -13,7 +13,18 @@
 			<version>1.1.0</version>
 		</Linc_Care>
 	</modules>
-	<global>
+	<admin>
+	    <routers>
+	        <care>
+	            <use>admin</use>
+	            <args>
+	                <module>Linc_Care</module>
+	                <frontName>linccare</frontName>
+	            </args>
+	        </care>
+	    </routers>
+	</admin>
+    <global>
 		<models>
 			<care>
 				<class>Linc_Care_Model</class>
@@ -44,16 +55,31 @@
 				</observers>
 			</sales_order_shipment_track_save_after>
 		</events>
+		<helpers>
+		    <care>
+		        <class>Linc_Care_Helper</class>
+		    </care>
+		</helpers>
 	</global>
-	<admin>
-        <routers>
-            <care>
-                <use>standard</use>
-                <args>
-                    <module>Linc_Care</module>
-                    <frontName>linccare</frontName>
-                </args>
-            </care>
-        </routers>  
-    </admin>
+    <adminhtml>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <linccaresection translate="title" >
+                                            <title>Store Linc Care Module Section</title>
+                                        </linccaresection>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
 </config>

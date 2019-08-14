@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <package>
     <name>Linc_Care</name>
-    <version>1.0.6</version>
+    <version>1.1.1</version>
     <stability>stable</stability>
-    <license uri="http://www.letslinc.com/Legal/LincCareLicenseAgreement/">Linc Global Commercial License</license>
+    <license uri="http://www.letslinc.com/legal/LincCareLicenseAgreement/">Linc Global Commercial License</license>
     <channel>community</channel>
     <extends/>
     <summary>Linc Care streamlines a personal and contextual self-serviced customer care experience that drives loyalty.</summary>
@@ -16,11 +16,6 @@
 &lt;br /&gt;&lt;br /&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;4. [Optional] assists your customers with return / exchange, where they can directly view the return policy, give you feedback on reasons for return, and directly print out shipping label.&lt;/p&gt;&#xD;
 &#xD;
 &lt;p&gt;&lt;strong&gt; &lt;/strong&gt;&#xD;
-&lt;h2&gt;Personalized Product Recommendations&lt;/h2&gt;&#xD;
-A product recommendation section that is &lt;strong&gt;constantly optimized&lt;/strong&gt; using product correlations learned from your own sales data. We check against your product listing and inventory data to make sure all product recommendations are up-to-date at the time customers are viewing their emails.&lt;p /&gt;&#xD;
-&lt;a href="https://internal.letslinc.com/ecare/dashboard/demo/36ad21cc-eabd-11e3-b42b-22000ac69e83"&gt;&lt;b&gt;Click to see a live demo &amp;gt;&amp;gt;&lt;/b&gt;&lt;/a&gt;&#xD;
-&#xD;
-&lt;p /&gt;&lt;strong&gt; &lt;/strong&gt;&#xD;
 &lt;h2&gt;Responsive Design for all Devices&lt;/h2&gt;&#xD;
 Fully responsive design for large screens or small screens like smart phones, &lt;strong&gt;delighting on-the-go shoppers&lt;/strong&gt; wherever they access their order status.&lt;/p&gt;&#xD;
 &#xD;
@@ -37,31 +32,32 @@ Linc Care is built by a team of seasoned technologists who brought to life large
 &lt;p&gt;&#xD;
 The Linc Care Professional Services Team is available to help you customize your experience at: &lt;a href="mailto:sales@linccare.com"&gt;sales@linccare.com&lt;/a&gt;&lt;/p&gt;&#xD;
 </description>
-    <notes>&lt;h1&gt;Welcome to the Linc Care extension for Magento.&lt;/h1&gt;&#xD;
+    <notes>Welcome to the Linc Care extension for Magento.&#xD;
 &#xD;
-&lt;h2&gt;News&lt;/h2&gt;&#xD;
-&lt;p&gt;The latest release enhances the widget to display a dynamic status of the order. We've also added a Recommendations widget that can be added where ever you have an order object.&amp;amp;gt;/p&amp;amp;gt;&#xD;
-&lt;p /&gt;&lt;b&gt;Install the extension as you would any other&lt;/b&gt;&lt;/p&gt;&#xD;
-&lt;h2&gt;Per Store Extension&lt;/h2&gt;&#xD;
-&lt;br /&gt;&lt;p&gt;The Linc Care extension has a &amp;quot;per store&amp;quot; store configuration. Each store has its own Store ID and Access Code. This means that, on the configuration page, you must select a store as your Current Configuration Scope&lt;/p&gt;&#xD;
-&lt;h2&gt;Configuration&lt;/h2&gt;&#xD;
-&lt;ol&gt;&#xD;
-&lt;li /&gt;&lt;b&gt;System / Configuration / General / Store Information&lt;/b&gt;&#xD;
-&lt;li /&gt;Set the Configuration Scope to the store you want to configure.&#xD;
-Fill in the store's ID and Access Key. If you don't have these already, click the &lt;b&gt;Go to Linc Care&lt;/b&gt; and register the store.&#xD;
-&lt;li /&gt;&lt;b&gt;System / Transactional Email&lt;/b&gt;&#xD;
-&lt;li /&gt;For any email that related to an order (i.e. New Order, New Order for Guest), edit it and insert &lt;b&gt;{{block type='care/widget' order=$order}}&lt;/b&gt; where you want the Linc Care widget to appear. &#xD;
-&lt;li /&gt;Click on Preview Template to confirm the appearance then save the template.&#xD;
-&lt;li /&gt;Repeat for any other order-based emails you want connected to Linc Care.&#xD;
-&lt;li /&gt;&lt;b&gt;System / Sales / Sales Email / Order&lt;/b&gt;&#xD;
-&lt;li /&gt;Select the new templates for appropriate email&#xD;
-&lt;li /&gt;Save the configuration&#xD;
-&lt;/ol&gt;&#xD;
-&lt;p&gt;If you have any comments or questions, please email us at support@linccare.com&lt;/p&gt;</notes>
-    <authors><author><name>Linc Care Development</name><user>letslincapp</user><email>apps@letslinc.com</email></author></authors>
-    <date>2014-10-02</date>
-    <time>21:43:34</time>
-    <contents><target name="magecommunity"><dir name="Linc"><dir name="Care"><dir name="Block"><file name="Button.php" hash="f6b577bdf0a83d98cabeb5956b0418e2"/><file name="Faqbutton.php" hash="862a87a5d06ae5c34f1ff629f341f01c"/><file name="Widget.php" hash="9ee16a783f21e4aecf5ab4b22757609f"/></dir><dir name="Model"><file name="Fulfillmentobserver.php" hash="eb767b78fd633aee7cf06d000635c4ed"/><file name="Orderobserver.php" hash="d30b0ea8f1086530f469dc6c7a1ab404"/></dir><dir name="etc"><file name="config.xml" hash="7ff613718b4fe9d68181d8505b46a449"/><file name="system.xml" hash="351200318f9fb37020f0f3bb49887171"/></dir><file name="readme" hash="b870624d95964a9953466ad8c89bef62"/></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Linc_Care.xml" hash="db51f40a404065353fec8086394b8d56"/></dir></target></contents>
+Here is one possible process for installing our extension.&#xD;
+&#xD;
+For those of you installing manually:&#xD;
+1. Go to System / Magento Connect / Magento Connect Manager&#xD;
+2. If you're installing via the Magento Connect website, follow the normal procedure then skip to step 5&#xD;
+3. If you're installing manually, download the package from http://care.letslinc.com/Downloads/Proximant_Linccare-1.1.0.tgz&#xD;
+4. Click the Browse button and select the file you just downloaded, the click the Upload button.&#xD;
+5. Go to System/Configuration/Linc Care/General&#xD;
+6. Enter the store's url and admin email along with a password, then click register.&#xD;
+7. When the Linc Care Merchant portal is launched, fill in the requested information.&#xD;
+8. Go to System/Transactional Email&#xD;
+9. If you have a have custom emails already, edit it and insert {{block type='linccare/widget' order=$order}} where you want the Linc Care widget to appear. Then save the template and skip to step 11&#xD;
+10. If not Click the Add New Template button.&#xD;
+11. On the next page select New Order from the Template dropdown and click the Load Template button&#xD;
+12. Name the new template and insert {{block type='linccare/widget' order=$order}} where you want the Linc Care widget to appear. Then save the template.&#xD;
+13. Repeat for any other order-based emails you want connected to Linc Care. We suggest New Order Guest&#xD;
+14. Go to System / Sales / Sales Email / Order and select the new templates for New Order Confirmation Email&#xD;
+15. Save the configuration&#xD;
+&#xD;
+If you have any comments or questions, please email us at support@linccare.com</notes>
+    <authors><author><name>Linc Care</name><user>letslincapp</user><email>apps@letslinc.com</email></author></authors>
+    <date>2014-11-13</date>
+    <time>22:45:29</time>
+    <contents><target name="mageetc"><dir name="modules"><file name="Linc_Care.xml" hash="f9738b6f4a087a40329f646a95afd4e7"/></dir></target><target name="magecommunity"><dir name="Linc"><dir name="Care"><dir name="Block"><dir name="Adminhtml"><dir name="System"><dir name="Config"><dir name="Form"><file name="Register.php" hash="cf5b1496e1f4d4fa111a3019e499fc16"/></dir></dir></dir></dir><file name="Confirm.php" hash="c5802e17ab99fe29759d4f0c3b61c16d"/><file name="Email.php" hash="8f6eb60dd06f7258c842377cb92bec07"/><file name="Faqbutton.php" hash="e9804ff3824aaaa5383af0f97fc75c1b"/><file name="Note.php" hash="637733c4a7ad19ef66b9db1d75c28b8d"/><file name="Pwd.php" hash="7dbe6f455456f06cb47ebdd072bdbd7f"/><file name="Url.php" hash="3a0fd1cc64646c14eb5183a05523879e"/><file name="Widget.php" hash="022d5247786710a94d159773f485421f"/></dir><dir name="Helper"><file name="Data.php" hash="34aec0a0ed4d5a1652b46fb7fe54707d"/></dir><dir name="Model"><file name="Fulfillmentobserver.php" hash="eeca57985d47973dd0b1e3853960e72a"/><file name="Orderobserver.php" hash="a652ef5211ef38fdc2a413a543ef312d"/></dir><file name="common.php" hash="31f91dd2a7df5e436de0732a45d90d0b"/><dir name="controllers"><file name="CareController.php" hash="bf838c022580ad12d9f07989af4a16df"/></dir><dir name="etc"><file name="config.xml" hash="7ed0cf290c7153306e2862886553690a"/><file name="system.xml" hash="95036d9df5911e0c0d2e6db996a4bbff"/></dir><file name="readme" hash="98490fe600e3d2b890a25746f17d5960"/></dir></dir></target><target name="magedesign"><dir name="adminhtml"><dir name="default"><dir name="default"><dir name="template"><dir name="care"><dir name="system"><dir name="config"><file name="register.phtml" hash="8b134f798a28f43de470e7c9dfa82492"/></dir></dir></dir></dir></dir></dir></dir></target></contents>
     <compatible/>
-    <dependencies><required><php><min>5.1.0</min><max>6.0.0</max></php></required></dependencies>
+    <dependencies><required><php><min>5.2.0</min><max>6.0.0</max></php></required></dependencies>
 </package>

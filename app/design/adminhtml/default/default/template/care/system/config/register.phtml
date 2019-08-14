@@ -1,0 +1,61 @@
+<?php
+    /* Create the register button and hook it up to linc/care/block/register */
+    require_once "Linc/Care/common.php";
+?>
+<script type="text/javascript">
+    //<![CDATA[
+    function register()
+    {
+//      alert('Register called');
+        var configForm = $('config_edit_form');
+        var validator = new Validation(configForm);
+        if (validator.validate())
+        {
+//          alert('Validate succeeded');
+            var url = document.getElementById('linccaresection_linccaregroup_url').value;
+            var email = document.getElementById('linccaresection_linccaregroup_email').value;
+            var pw = document.getElementById('linccaresection_linccaregroup_password').value;
+            var confirm = document.getElementById('linccaresection_linccaregroup_confirm').value;
+            
+            new Ajax.Request('<?php echo $this->getAjaxRegisterUrl() ?>',
+                {
+                    method: 'get',
+                    parameters: {
+                        url: url,
+                        email: email,
+                        password: pw,
+                        confirm: confirm,
+                        ecommerce: 'magento'
+                    },
+                    onSuccess:  function(transport)
+                                {
+                                    alert('Success - ' + transport.responseText);   
+                                    var linc_url = '<?php echo $this->getMerchantOnboardUrl() ?>' +
+                                        "?ecommerce=" + transport.responseJSON.ecommerce +
+                                        "&shop_id=" + transport.responseJSON.store_id +
+                                        "&url=" + transport.responseJSON.url + 
+                                        "&email=" + transport.responseJSON.email;
+                                    
+                                    alert('OnSuccess - ' + linc_url);                                        
+                                    popWin(linc_url, '_blank');
+                                }.bind(this),
+                    onFailure:  function(transport)
+                                {
+                                    alert(transport.responseText);
+                                }.bind(this),                    
+//                  onComplete: function(transport)
+//                              {
+//                                  alert('Complete - ' + transport.responseText);
+//                              }.bind(this),                    
+                });
+        }
+//      else
+//      {
+//          alert('Validate failed.');
+//      }
+    }
+    //]]>
+</script>
+
+<?php echo $this->getButtonHtml() ?>
+
