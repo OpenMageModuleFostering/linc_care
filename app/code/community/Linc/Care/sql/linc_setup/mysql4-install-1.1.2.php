@@ -65,7 +65,7 @@ $dataorder = array(
 		
 $postdata = json_encode($dataorder);
 $client->setRawData($postData, 'application/json');
-$response = $this->client->request();
+$response = $client->request();
 
 $installer->endSetup();
 ?>
