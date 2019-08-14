@@ -58,7 +58,6 @@ class Linc_Care_Block_Widget  extends Mage_Core_Block_Abstract
                 $query .= "&fn=".$order->getCustomerFirstname();
                 $query .= "&ln=".$order->getCustomerLastname();
                 $query .= "&e=".$order->getCustomerEmail();
-                $query .= "&d=1";
                 $query .= "&g=".$order->getGrandTotal();
                 $query .= "&o=".$order->getIncrementId();
                 $query .= "&osi=".$order->getIncrementId();
@@ -67,6 +66,7 @@ class Linc_Care_Block_Widget  extends Mage_Core_Block_Abstract
                 $query .= "&shop_id=".$this->storeId;
                 $query .= "&source=email";
                 $query .= "&viewer=".$order->getCustomerEmail();
+                $query .= "&v=2";
 
                 $html  = "<img src='https://care.letslinc.com/user_activity?";
                 $html .= $query."&activity=widget_impression' border='0' height='1' width='1'>";
