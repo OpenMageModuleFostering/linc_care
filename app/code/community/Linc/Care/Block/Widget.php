@@ -33,11 +33,28 @@ class Linc_Care_Block_Widget  extends Mage_Core_Block_Abstract
                 $shop_id = $rows[0]['value'];
             }
     
-            $protocol = SERVER_PROTOCOL;
-            $url = SERVER_PATH;
+            # get landing page
+            $page_id = '';
+            $select = $read->select()
+                ->from(array('cd'=>$configDataTable))
+                ->where('cd.scope=?', 'store')
+                ->where("cd.path=?", 'linc_landing_page');
+            $rows = $read->fetchAll($select);
+
+            if (count($rows) > 0)
+            {
+                $page = $rows[0]['value'];
+            }
+            else
+            {
+                $protocol = SERVER_PROTOCOL;
+                $url = SERVER_PATH;
+                $page = '$protocol://care.$url';
+            }
+    
             $query = "shop_id=".$shop_id;
-            $html  = "<a href='$protocol://care.$url/home?";
-            $html .= $query."'><img src='$protocol://care.$url/widget_image?";
+            $html  = "<a href='$page/home?";
+            $html .= $query."'><img src='$page/widget_image?";
             $html .= $query."&v=2&widget=0'></a>";
         }
         else
@@ -57,9 +74,32 @@ class Linc_Care_Block_Widget  extends Mage_Core_Block_Abstract
                 $shop_id = $rows[0]['value'];
             }
     
+            # get landing page
+            $page_id = '';
+            $select = $read->select()
+                ->from(array('cd'=>$configDataTable))
+                ->where('cd.scope=?', 'store')
+                ->where("cd.path=?", 'linc_landing_page');
+            $rows = $read->fetchAll($select);
+
+            if (count($rows) > 0)
+            {
+                $page = $rows[0]['value'];
+            }
+            else
+            {
+                $protocol = SERVER_PROTOCOL;
+                $url = SERVER_PATH;
+                $page = '$protocol://care.$url';
+            }
+    
             $items = $order->getItemsCollection();
 
-            $query = "";
+            $query = "shop_id=" . urlencode($shop_id);
+            $query .= "&o="     . urlencode($order->getIncrementId());
+            $query .= "&e="     . urlencode($order->getCustomerEmail());
+            $query .= "&osi="   . urlencode($order->getIncrementId());
+            
             $baseurl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).'catalog/product';
             foreach ($items as $item)
             {
@@ -70,12 +110,7 @@ class Linc_Care_Block_Widget  extends Mage_Core_Block_Abstract
                     {
                         $imgurl = $baseurl.$product->getImage();
 
-                        if ($query != "")
-                        {
-                            $query .= "&";
-                        }
-
-                        $query .= "q=".$item->getQtyOrdered();
+                        $query .= "&q=".$item->getQtyOrdered();
                         $query .= "&p=".$product->getId();
                         $query .= "&pp=".$item->getPrice();
                         $query .= "&w=".$item->getWeight();
@@ -92,32 +127,28 @@ class Linc_Care_Block_Widget  extends Mage_Core_Block_Abstract
                 $s_addr = $order->getBillingAddress();
             }
 
-            $query .= "&a1=".urlencode($s_addr->getStreet1());
-            $query .= "&a2=".urlencode($s_addr->getStreet2());
-            $query .= "&au=".urlencode($s_addr->getCountry());
-            $query .= "&ac=".urlencode($s_addr->getCity());
-            $query .= "&as=".urlencode($s_addr->getRegion());
-            $query .= "&az=".urlencode($s_addr->getPostcode());
-            $query .= "&fn=".urlencode($order->getCustomerFirstname());
-            $query .= "&ln=".urlencode($order->getCustomerLastname());
-            $query .= "&e=".urlencode($order->getCustomerEmail());
-            $query .= "&g=".urlencode($order->getGrandTotal());
-            $query .= "&o=".urlencode($order->getIncrementId());
-            $query .= "&osi=".urlencode($order->getIncrementId());
-            $query .= "&pd=".urlencode($order->getUpdatedAt('long'));
-            $query .= "&ph=".urlencode($s_addr->getTelephone());
-            $query .= "&shop_id=".urlencode($shop_id);
+            $query .= "&a1=" . urlencode($s_addr->getStreet1());
+            $query .= "&a2=" . urlencode($s_addr->getStreet2());
+            $query .= "&au=" . urlencode($s_addr->getCountry());
+            $query .= "&ac=" . urlencode($s_addr->getCity());
+            $query .= "&as=" . urlencode($s_addr->getRegion());
+            $query .= "&az=" . urlencode($s_addr->getPostcode());
+            $query .= "&fn=" . urlencode($order->getCustomerFirstname());
+            $query .= "&ln=" . urlencode($order->getCustomerLastname());
+            $query .= "&g="  . urlencode($order->getGrandTotal());
+            $query .= "&pd=" . urlencode($order->getUpdatedAt('long'));
+            $query .= "&ph=" . urlencode($s_addr->getTelephone());
             $query .= "&source=email";
-            $query .= "&viewer=".urlencode($order->getCustomerEmail());
+            $query .= "&viewer=" . urlencode($order->getCustomerEmail());
             $query .= "&v=2";
 
             $protocol = SERVER_PROTOCOL;
             $url = SERVER_PATH;
-            $html  = "<img src='$protocol://care.$url/user_activity?";
-            $html .= $query."&activity=widget_impression' border='0' height='1' width='1'>";
-            $html .= "<a href='$protocol://care.$url/home?";
-            $html .= $query."'><img src='$protocol://care.$url/widget_image?";
-            $html .= $query."&widget=0'></a>";
+            $html  = "<img src='$page/user_activity?";
+            $html .= $query . "&activity=widget_impression' border='0' height='1' width='1'>";
+            $html .= "<a href='$page/home?";
+            $html .= "$query'><img src='$page/widget_image?";
+            $html .= "$query&widget=0'></a>";
 
             //Mage::log("Widget complete - $html", null, 'order.log', true);
         }

@@ -128,17 +128,17 @@ class Linc_Care_Model_Fulfillmentobserver
 		$this->log("buildJson started");
 		
 		$track = $observer->getEvent()->getTrack();
-		$this->log("buildJson Got order");
+		$this->log("buildJson Got track");
 		$store = $track->getStore();
-		$this->log("buildJson Got order");
+		$this->log("buildJson Got store");
 		$shipment  = $track->getShipment();
-		$this->log("buildJson Got order");
+		$this->log("buildJson Got shipment");
 		$order  = $shipment->getOrder();
 		$this->log("buildJson Got order");
 		$carrier = $order->getShippingCarrier();
-		$this->log("buildJson Got order");
+		$this->log("buildJson Got carrier");
 		$store_id = $observer->getStoreId();
-		$this->log("buildJson Got order");
+		$this->log("buildJson Got store_id");
 
 		$postdata = "";
 		$CarrierCode = "";

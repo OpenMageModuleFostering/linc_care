@@ -10,6 +10,8 @@
         var validator = new Validation(configForm);
         if (validator.validate())
         {
+            var name = document.getElementById('linccaresection_linccaregroup_storename').value;
+            var page = document.getElementById('linccaresection_linccaregroup_landingpage').value;
             var url = document.getElementById('linccaresection_linccaregroup_url').value;
             var email = document.getElementById('linccaresection_linccaregroup_email').value;
             var pw = document.getElementById('linccaresection_linccaregroup_password').value;
@@ -19,6 +21,8 @@
                 {
                     method: 'get',
                     parameters: {
+                        name: name,
+                        page: page,
                         url: url,
                         email: email,
                         password: pw,

@@ -96,6 +96,24 @@ class Linc_Care_Block_Adminhtml_System_Config_Form_Register extends Mage_Adminht
             $shop_id = $rows[0]['value'];
         }
         
+        # get store name
+        $store_name = '';
+        $select = $read->select()
+            ->from(array('cd'=>$configDataTable))
+            ->where('cd.scope=?', 'store')
+            ->where("cd.scope_id=?", $store_id)
+            ->where("cd.path=?", 'linc_store_name');
+        $rows = $read->fetchAll($select);
+
+        if (count($rows) > 0)
+        {
+            $store_name = $rows[0]['value'];
+        }
+        else
+        {
+            $store_name = Mage::getStoreConfig('general/store_information/name');
+        }
+        
         # get url
         $shop_url = '';
         $select = $read->select()

@@ -10,13 +10,15 @@ class Linc_Care_CareController extends Mage_Adminhtml_Controller_Action
     {
         if (DBGLOG) Mage::log("Care::registerAction called", null, 'register.log', true);
         
+        $name = $this->getRequest()->getParam('name');
+        $page = $this->getRequest()->getParam('page');
         $url = $this->getRequest()->getParam('url');
         $email = $this->getRequest()->getParam('email');
         $password = $this->getRequest()->getParam('password');
         $confirm = $this->getRequest()->getParam('confirm');
         $ecommerce = $this->getRequest()->getParam('ecommerce');
         
-		$post_data_json = $this->buildJson($url, $email, $password, $confirm, $ecommerce);
+		$post_data_json = $this->buildJson($name, $page, $url, $email, $password, $confirm, $ecommerce);
 		$this->sendRegister($post_data_json);
 	}
 	
@@ -39,24 +41,7 @@ class Linc_Care_CareController extends Mage_Adminhtml_Controller_Action
         $this->getLayout()->setArea($this->_currentArea);
         $_isValidFormKey = true;
         $_isValidSecretKey = true;
-/*
-        Mage::dispatchEvent('adminhtml_controller_action_predispatch_start', array());
-        parent::preDispatch();
-        $_keyErrorMsg = '';
-        if (Mage::getSingleton('admin/session')->isLoggedIn()) 
-        {
-            if ($this->getRequest()->isPost()) 
-            {
-                $_isValidFormKey = $this->_validateFormKey();
-                $_keyErrorMsg = Mage::helper('adminhtml')->__('Invalid Form Key. Please refresh the page.');
-            }
-            elseif (Mage::getSingleton('adminhtml/url')->useSecretKey()) 
-            {
-                $_isValidSecretKey = $this->_validateSecretKey();
-                $_keyErrorMsg = Mage::helper('adminhtml')->__('Invalid Secret Key. Please refresh the page.');
-            }
-        }
-*/
+
         if (!$_isValidFormKey || !$_isValidSecretKey) 
         {
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
@@ -89,7 +74,6 @@ class Linc_Care_CareController extends Mage_Adminhtml_Controller_Action
             && !$this->_getSession()->getIsUrlNotice(true)
             && !Mage::getConfig()->getNode('global/can_use_base_url')) 
         {
-            //$this->_checkUrlSettings();
             $this->setFlag('', self::FLAG_IS_URLS_CHECKED, true);
         }
         
@@ -165,6 +149,8 @@ class Linc_Care_CareController extends Mage_Adminhtml_Controller_Action
 				$array = Mage::helper('core')->jsonDecode($temp);
 				
                 # write values into core_config_data
+                Mage::getConfig()->saveConfig('linc_store_name', $array['name'], 'store', $store_id);
+                Mage::getConfig()->saveConfig('linc_landing_page', $array['page'], 'store', $store_id);
                 Mage::getConfig()->saveConfig('linc_url', $array['url'], 'store', $store_id);
                 Mage::getConfig()->saveConfig('linc_email', $array['email'], 'store', $store_id);
                 Mage::getConfig()->saveConfig('linc_password', $array['password'], 'store', $store_id);
@@ -211,9 +197,11 @@ class Linc_Care_CareController extends Mage_Adminhtml_Controller_Action
 			'Content-Type' => 'application/json'));
 	}
 		
-	public function buildJson($url, $email, $password, $confirm, $ecommerce)
+	public function buildJson($name, $page, $url, $email, $password, $confirm, $ecommerce)
 	{
 		$dataorder = array(
+		    'name' => $name,
+		    'page' => $page,
 			'email' => $email,
 			'password' => $password,
 			'url' => $url,
