@@ -12,9 +12,8 @@ For those of you installing manually:
 7. If not Click the Add New Template button.
 8. On the next page select New Order from the Template dropdown and click the Load Template button
 9. Name the new template and insert {{block type='linccare/widget' order=$order}} where you want the Linc Care widget to appear. Then save the template.
-10. Open the email template you just created and insert {{block type='linccare/widget' order=$order}} where you want the Linc Care widget to appear. Then save the template.
-11. Repeat for any other order-based emails you want connected to Linc Care. We suggest New Order Guest
-12. Go to System / Sales / Sales Email / Order and select the new templates for New Order Confirmation Email
-12 Save the configuration
+10. Repeat for any other order-based emails you want connected to Linc Care. We suggest New Order Guest
+11. Go to System / Sales / Sales Email / Order and select the new templates for New Order Confirmation Email
+12. Save the configuration
 
 If you have any comments or questions, please email us at support@linccare.com

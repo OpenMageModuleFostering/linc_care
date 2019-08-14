@@ -113,9 +113,9 @@ class Linc_Care_Model_Fulfillmentobserver
 		
 		$this->client->setConfig(array(
 			'maxredirects'	=> 0,
-			'timeout'				=> 30,
-			'keepalive'			=> true,
-	    'adapter'      => 'Zend_Http_Client_Adapter_Socket'));
+			'timeout'		=> 30,
+			'keepalive'		=> true,
+	        'adapter'       => 'Zend_Http_Client_Adapter_Socket'));
 	    
 		$this->client->setMethod(Zend_Http_Client::POST);
 		$this->client->setHeaders(array(
@@ -136,7 +136,7 @@ class Linc_Care_Model_Fulfillmentobserver
 		}
 		
 		$dataorder = array(
-			'order_id' => $this->order->getIncrementId(),
+			'order_code_external' => $this->order->getIncrementId(),
 			'carrier' => $CarrierCode,
 			'tracking_number' => $this->track->getNumber(),
 			'fulfill_date' => $this->shipment->getCreatedAt()

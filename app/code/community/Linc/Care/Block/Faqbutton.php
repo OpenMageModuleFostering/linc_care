@@ -6,7 +6,7 @@ class Linc_Care_Block_FAQButton extends Mage_Adminhtml_Block_System_Config_Form_
     {
         $this->setElement($element);
         
-        $url = "http://www.letslinc.com/products/";
+        $url = "http://www.letslinc.com/business/";
         
         $html = $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setType('button')

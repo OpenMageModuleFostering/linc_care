@@ -163,13 +163,15 @@ class Linc_Care_Model_Orderobserver
 			Mage::log("exportOrder built user $temp", null, 'order.log', true);
 		}
 		
+		$country = Mage::getModel('directory/country')->loadByCode($b_addr->getCountry());
 		$addrB = array(
 			'address'		=> $b_addr->getStreet1(),
-			'address2'	=> $b_addr->getStreet2(),
+			'address2'	    => $b_addr->getStreet2(),
 			'city'			=> $b_addr->getCity(),
 			'state'			=> $b_addr->getRegion(),
-			'country'		=> $b_addr->getCountry(),
-			'zip'				=> $b_addr->getPostcode());
+			'country_code'	=> $b_addr->getCountry(),
+			'country'		=> $country->getName(),
+			'zip'			=> $b_addr->getPostcode());
 			
 		if ($this->debug)
 		{
@@ -177,13 +179,15 @@ class Linc_Care_Model_Orderobserver
 			Mage::log("exportOrder built billing address $temp", null, 'order.log', true);
 		}
 		
+		$country = Mage::getModel('directory/country')->loadByCode($s_addr->getCountry());
 		$addrS = array(
 			'address'		=> $s_addr->getStreet1(),
-			'address2'	=> $s_addr->getStreet2(),
+			'address2'  	=> $s_addr->getStreet2(),
 			'city'			=> $s_addr->getCity(),
 			'state'			=> $s_addr->getRegion(),
-			'country'		=> $s_addr->getCountry(),
-			'zip'				=> $s_addr->getPostcode());
+			'country_code'	=> $s_addr->getCountry(),
+			'country'		=> $country->getName(),
+			'zip'			=> $s_addr->getPostcode());
 
 		if ($this->debug)
 		{
@@ -193,7 +197,7 @@ class Linc_Care_Model_Orderobserver
 		
 		$dataorder = array(
 			'user' => $user,
-			'order_id' => $order->getIncrementId(),
+			'order_code_external' => $order->getIncrementId(),
 			'billing_address' => $addrB,
 			'shipping_address' => $addrS,
 			'purchase_date' => $order->getUpdatedAt(),
