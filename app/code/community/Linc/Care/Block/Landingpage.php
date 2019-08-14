@@ -62,6 +62,7 @@ class Linc_Care_Block_Landingpage extends Mage_Adminhtml_Block_System_Config_For
         }
 
         if (DBGLOG) Mage::log("Landing page - $store_id; $page $shop_id", null, 'register.log', true);
+        $page = str_replace("'", "&#39;", $page);
 
         $html = parent::_getElementHtml($element);
         $html .= "<input type=text class='input-text required-entry validate-url' id=linccaresection_linccaregroup_landingpage maxlength=2000 value='$page' $disabled />";

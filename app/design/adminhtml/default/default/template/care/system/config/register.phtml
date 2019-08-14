@@ -35,7 +35,7 @@
                                         '",\n "shop_id" : "' + transport.responseJSON.store_id +
                                         '",\n "url" : "' + transport.responseJSON.url + 
                                         '",\n "email" : "' + transport.responseJSON.email + 
-                                        '",\n "password" : "' + transport.responseJSON.email + '" }';
+                                        '",\n "password" : "' + transport.responseJSON.password + '" }';
                                         
                                     var code = Base64.encode(json);
 
@@ -50,6 +50,26 @@
                                 }.bind(this),                    
                 });
         }
+    }
+
+    function login(store_id)
+    {
+        var name = document.getElementById('linccaresection_linccaregroup_storename').value;
+        var page = document.getElementById('linccaresection_linccaregroup_landingpage').value;
+        var url = document.getElementById('linccaresection_linccaregroup_url').value;
+        var email = document.getElementById('linccaresection_linccaregroup_email').value;
+        var pw = document.getElementById('linccaresection_linccaregroup_password').value;
+        var confirm = document.getElementById('linccaresection_linccaregroup_confirm').value;
+        
+        var json = '{\n"ecommerce": "magento",\n "shop_id" : "' + store_id + 
+            '",\n "url" : "' + url + '",\n "email" : "' + email + '",\n "password" : "' + pw + '" }';
+            
+        var code = Base64.encode(json);
+
+        var linc_url = '<?php echo $this->getMerchantOnboardUrl() ?>?code=' + code;
+
+        popWin(linc_url, '_blank');
+        location.reload();
     }
 
     var Base64 = {

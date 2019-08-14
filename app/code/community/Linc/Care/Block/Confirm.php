@@ -54,6 +54,7 @@ class Linc_Care_Block_Confirm extends Mage_Adminhtml_Block_System_Config_Form_Fi
             $disabled = "disabled";
         }
         
+        $confirm = str_replace("'", "&#39;", $confirm);
 
         $html = parent::_getElementHtml($element);
         $html .= "<input type=password class='input-text required-entry validate-cpassword' id=linccaresection_linccaregroup_confirm maxlength=2000 value='$confirm' $disabled />";

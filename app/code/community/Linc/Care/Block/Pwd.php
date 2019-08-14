@@ -41,7 +41,7 @@ class Linc_Care_Block_Pwd extends Mage_Adminhtml_Block_System_Config_Form_Field
             ->from(array('cd'=>$configDataTable))
             ->where('cd.scope=?', 'store')
             ->where("cd.scope_id=?", $store_id)
-            ->where("cd.path=?", 'linc_pwd');
+            ->where("cd.path=?", 'linc_password');
         $rows = $read->fetchAll($select);
 
         if (count($rows) > 0)
@@ -54,6 +54,7 @@ class Linc_Care_Block_Pwd extends Mage_Adminhtml_Block_System_Config_Form_Field
         {
             $disabled = "disabled";
         }
+        $pwd = str_replace("'", "&#39;", $pwd);
 
         $html = parent::_getElementHtml($element);
         $html .= "<input type=password class='input-text required-entry validate-password' id=linccaresection_linccaregroup_password maxlength=2000 value='$pwd' $disabled />";

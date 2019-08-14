@@ -58,6 +58,7 @@ class Linc_Care_Block_Email extends Mage_Adminhtml_Block_System_Config_Form_Fiel
         {
             $disabled = "disabled";
         }
+        $email = str_replace("'", "&#39;", $email);
 
         $html = parent::_getElementHtml($element);
         $html .= "<input type=text class='input-text required-entry validate-email' id=linccaresection_linccaregroup_email maxlength=256 value='$email' $disabled />";

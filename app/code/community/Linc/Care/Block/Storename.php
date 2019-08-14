@@ -60,6 +60,7 @@ class Linc_Care_Block_Storename extends Mage_Adminhtml_Block_System_Config_Form_
         }
 
         if (DBGLOG) Mage::log("Store name - $store_id; $name; $shop_id", null, 'register.log', true);
+        $name = str_replace("'", "&#39;", $name);
 
         $html = parent::_getElementHtml($element);
         $html .= "<input type=text class='input-text required-entry ' id=linccaresection_linccaregroup_storename maxlength=2000 value='$name' $disabled />";
