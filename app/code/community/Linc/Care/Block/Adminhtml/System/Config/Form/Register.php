@@ -15,6 +15,19 @@ class Linc_Care_Block_Adminhtml_System_Config_Form_Register extends Mage_Adminht
         {
             $store_id = Mage::getModel('core/store')->load($code)->getId();
         }
+        else
+        {
+            if (strlen($code = Mage::app()->getRequest()->getParam('store')))
+            { // store level
+                $store_id = Mage::getModel('core/store')->load($code)->getId();
+            }
+            elseif (strlen($code = $code = Mage::app()->getRequest()->getParam('website')))
+            { // website level
+                $website_id = Mage::getModel('core/website')->load($code)->getId();
+                $store_id = Mage::app()->getWebsite($website_id)->getDefaultStore()->getId();
+            }
+        }
+
         Mage::getConfig()->saveConfig('linc_current_store', $store_id, 'default', 0);
     }
     
