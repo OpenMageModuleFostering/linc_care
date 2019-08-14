@@ -5,11 +5,52 @@ class Linc_Care_Model_Orderobserver
 {
 	public $client = null;
 	public $queue = null;
+	public $logname = 'order.log';
+	
+	public function log($msg)
+	{
+	    if (DBGLOG) Mage::log($msg, null, $this->logname, true);
+        #print("<p>$msg</p>");
+	}
 
 	public function exportOrder(Varien_Event_Observer $observer)
 	{
-        $store_id = $observer->getStoreId();
-	    $accessToken = Mage::getStoreConfig('linc_access_key', $store_id);
+        $this->log("Beginning exportOrder");
+        
+        $store_id = $observer->getEvent()->getOrder()->getStoreId();
+        #$this->log($observer->debug());
+        $this->log("Got store ID - " . $store_id);
+
+        # get access key
+        $resource = Mage::getSingleton('core/resource');
+        $this->log("Got Resource");
+        
+        $read = $resource->getConnection('core_read');
+        $this->log("Got Read");
+        
+        $configDataTable = $read->getTableName('core_config_data');
+        $this->log("Got config table");
+
+        $accessToken = '';
+        $select = $read->select()
+            ->from(array('cd'=>$configDataTable))
+            ->where('cd.scope=?', 'store')
+            ->where("cd.scope_id=?", $store_id)
+            ->where("cd.path=?", 'linc_access_key');
+        $this->log("Got Select");
+        
+        $rows = $read->fetchAll($select);
+        
+        if (count($rows) > 0)
+        {
+            $accessToken = $rows[0]['value'];
+            $this->log("Got access token - $accessToken");
+        }
+        else
+        {
+            $this->log("Got config table");
+        }
+
 		if ($accessToken != null)
 		{
 			$post_data_json = $this->buildJson($observer);
@@ -21,11 +62,14 @@ class Linc_Care_Model_Orderobserver
 	{
 		if ($this->client == null)
 		{
+			$this->log("Connecting to Linc Care");
 			$this->connectToLincCare($accessToken);
 			if ($this->client != null && $this->queue != null)
 			{
+    			$this->log("Processing the queue");
 				$sendQueue = $this->queue;
 				unset($this->queue);
+				$this->queue = null;
 				
 				foreach ($sendQueue as $data)
 				{
@@ -34,6 +78,7 @@ class Linc_Care_Model_Orderobserver
 			}
 			else
 			{
+    			$this->log("Saving to queue");
 				if ($this->queue == null)
 				{
 					$this->queue = array();
@@ -45,21 +90,23 @@ class Linc_Care_Model_Orderobserver
 
 		if ($this->client != null)
 		{
+			$this->log("Building request");
+			
 			$this->client->setRawData($postData, 'application/json');
 			$response = $this->client->request();
 			
-			if (DBGLOG) {
-				$temp = $response->getStatus();
-				Mage::log("Linc_Care HTTP Status $temp", null, 'order.log', true);
-			}
+			$temp = $response->getStatus();
+			$this->log("Linc_Care HTTP Status $temp");
 			
 			if ($response->getStatus() == 201)
 			{
 				$temp = $response->getBody();
-				if (DBGLOG) Mage::log("Linc_Care $temp", null, 'order.log', true);
+				$this->log("Linc_Care $temp");
 			}
 			else
 			{
+			    $adapter = $this->client->getAdapter();
+			    $adapter->close();
 				$this->client = null;
 				array_push($this->queue, $postData);
 			}
@@ -68,9 +115,10 @@ class Linc_Care_Model_Orderobserver
 	
 	public function connectToLincCare($accessToken)
 	{
-		$this->client = new Zend_Http_Client();
         $protocol = SERVER_PROTOCOL;
         $url = SERVER_PATH;
+        
+		$this->client = new Zend_Http_Client();
 		$this->client->setUri("$protocol://pub-api.$url/v1/order");
 		
 		$this->client->setConfig(array(
@@ -87,25 +135,25 @@ class Linc_Care_Model_Orderobserver
 		
 	public function buildJson(Varien_Event_Observer $observer)
 	{
-		if (DBGLOG) Mage::log("exportOrder started", null, 'order.log', true);
+		$this->log("exportOrder started");
 
 		$order = $observer->getEvent()->getOrder();
-		if (DBGLOG) Mage::log("exportOrder Got order", null, 'order.log', true);
+		$this->log("exportOrder Got order");
 		$orderdata  = $order->getData();
-		if (DBGLOG) Mage::log("exportOrder Got data", null, 'order.log', true);
+		$this->log("exportOrder Got data");
 		
 		$b_addr = $order->getBillingAddress();
 		if (DBGLOG) 
 		{
 			$temp = json_encode($b_addr->getData());
-			Mage::log("exportOrder got billing address $temp", null, 'order.log', true);
+			$this->log("exportOrder got billing address $temp");
 		}
 	
 		$s_addr = $order->getShippingAddress();
 		if (DBGLOG && $s_addr != null)
 		{
 			$temp = json_encode($s_addr->getData());
-			Mage::log("exportOrder got shipping address $temp", null, 'order.log', true);
+			$this->log("exportOrder got shipping address $temp");
 		}
 		else
 		{
@@ -114,10 +162,10 @@ class Linc_Care_Model_Orderobserver
 		}
 		
 		$phone = $b_addr->getTelephone();
-		if (DBGLOG) Mage::log("exportOrder got phone $phone", null, 'order.log', true);
+		$this->log("exportOrder got phone $phone");
 		
 		$items = $order->getItemsCollection();
-		if (DBGLOG) Mage::log("exportOrder got item collection", null, 'order.log', true);
+		$this->log("exportOrder got item collection");
 		
 		$dataitems = array();
 		foreach ($items as $item)
@@ -136,17 +184,17 @@ class Linc_Care_Model_Orderobserver
 			  #if (DBGLOG)
 			  {
 				  $temp = json_encode($dataitem);
-				  Mage::log("exportOrder built an item $temp", null, 'order.log', true);
+				  $this->log("exportOrder built an item $temp");
 			  }
 			
 			  array_push($dataitems, $dataitem);
 			}
 		}
 		
-		if (DBGLOG) Mage::log("exportOrder built items", null, 'order.log', true);
+		$this->log("exportOrder built items");
 		
 		$user = array (
-			'user_id'    => $order->getCustomerId(),
+			'user_id'    => $order->getCustomerEmail(),
 			'first_name' => $order->getCustomerFirstname(),
 			'last_name'  => $order->getCustomerLastname(),
 			'email'      => $order->getCustomerEmail(),
@@ -155,39 +203,39 @@ class Linc_Care_Model_Orderobserver
 		if (DBGLOG)
 		{
 			$temp = json_encode($user);
-			Mage::log("exportOrder built user $temp", null, 'order.log', true);
+			$this->log("exportOrder built user $temp");
 		}
 		
-		$country = Mage::getModel('directory/country')->loadByCode($b_addr->getCountry());
+		#$country = Mage::getModel('directory/country')->loadByCode($b_addr->getCountry());
 		$addrB = array(
 			'address'		=> $b_addr->getStreet1(),
 			'address2'	    => $b_addr->getStreet2(),
 			'city'			=> $b_addr->getCity(),
 			'state'			=> $b_addr->getRegion(),
 			'country_code'	=> $b_addr->getCountry(),
-			'country'		=> $country->getName(),
+			#'country'		=> $country->getName(),
 			'zip'			=> $b_addr->getPostcode());
 			
 		if (DBGLOG)
 		{
 			$temp = json_encode($addrB);
-			Mage::log("exportOrder built billing address $temp", null, 'order.log', true);
+			$this->log("exportOrder built billing address $temp");
 		}
 		
-		$country = Mage::getModel('directory/country')->loadByCode($s_addr->getCountry());
+		#$country = Mage::getModel('directory/country')->loadByCode($s_addr->getCountry());
 		$addrS = array(
 			'address'		=> $s_addr->getStreet1(),
 			'address2'  	=> $s_addr->getStreet2(),
 			'city'			=> $s_addr->getCity(),
 			'state'			=> $s_addr->getRegion(),
 			'country_code'	=> $s_addr->getCountry(),
-			'country'		=> $country->getName(),
+			#'country'		=> $country->getName(),
 			'zip'			=> $s_addr->getPostcode());
 
 		if (DBGLOG)
 		{
 			$temp = json_encode($addrS);
-			Mage::log("exportOrder built shipping address $temp", null, 'order.log', true);
+			$this->log("exportOrder built shipping address $temp");
 		}
 		
 		$dataorder = array(
@@ -201,9 +249,9 @@ class Linc_Care_Model_Orderobserver
 			'products' => $dataitems);
 		
 		$postdata = json_encode($dataorder);
-		if (DBGLOG) Mage::log($postdata, null, 'order.log', true);
+		$this->log($postdata);
 
-		if (DBGLOG) Mage::log("exportOrder ended", null, 'order.log', true);
+		$this->log("exportOrder ended");
 		
 		return $postdata;
 	}

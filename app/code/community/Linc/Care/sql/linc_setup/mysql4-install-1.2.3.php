@@ -4,9 +4,10 @@ require_once "Linc/Care/common.php";
 $installer = $this;
 $installer->startSetup();
 
-$client = new Zend_Http_Client();
 $protocol = SERVER_PROTOCOL;
 $url = SERVER_PATH;
+
+$client = new Zend_Http_Client();
 $client->setUri("$protocol://pub-api.$url/v1/install");
 
 $client->setConfig(array(
@@ -17,10 +18,6 @@ $client->setConfig(array(
 
 $client->setMethod(Zend_Http_Client::POST);
 $client->setHeaders(array('Content-Type' => 'application/json'));
-
-$resource = Mage::getSingleton('core/resource');
-$read = $resource->getConnection('core_read');
-$configDataTable = $read->getTableName('core_config_data');
 
 $dataorder = array(
     'ecommerce' => 'magento',
