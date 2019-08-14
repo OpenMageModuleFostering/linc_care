@@ -17,6 +17,8 @@ class Linc_Care_Block_Widget  extends Mage_Core_Block_Abstract
 			$order = $this->getOrder();
 			$items = $order->getItemsCollection();
 			
+			for($i = 1; $i <= 3; $i++)
+			{
 			$query = "";
 			$baseurl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).'catalog/product';
 			foreach ($items as $item)
@@ -57,7 +59,7 @@ class Linc_Care_Block_Widget  extends Mage_Core_Block_Abstract
 			$query .= "&ln=".$order->getCustomerLastname();
 			$query .= "&e=".$order->getCustomerEmail();
 			$query .= "&g=".$order->getGrandTotal();
-			$query .= "&o=".$order->getIncrementId();
+			$query .= "&o=";
 			$query .= "&osi=".$order->getIncrementId();
 			$query .= "&pd=".$order->getUpdatedAt('long');
 			$query .= "&ph=".$s_addr->getTelephone();

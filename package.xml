@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
     <name>Linc_Care</name>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <stability>stable</stability>
     <license uri="http://www.letslinc.com/Legal/LincCareLicenseAgreement/">Linc Global Commercial License</license>
     <channel>community</channel>
@@ -39,28 +39,30 @@ Subscribe to our email list to receive product updates: &lt;a href="http://www.l
 </description>
     <notes>Welcome to the Linc Care extension for Magento.&#xD;
 &#xD;
+The latest release enhances the widget to display a dynamic status of the order. We've also added a Recommendations widget that can be added where ever you have an order object.&#xD;
+&#xD;
 Here is one possible process for installing our extension.&#xD;
 &#xD;
 For those of you installing manually:&#xD;
 1. Go to System / Magento Connect / Magento Connect Manager&#xD;
 2. If you're installing via the Magento Connect website, follow the normal procedure then skip to step 5&#xD;
-3. If you're installing manually, download the package from http://care.letslinc.com/Downloads/Proximant_Linccare-1.0.0.tgz&#xD;
+3. If you're installing manually, download the package from http://care.letslinc.com/Downloads/Proximant_Linccare-1.0.3.tgz&#xD;
 4. Click the Browse button and select the file you just downloaded, the click the Upload button.&#xD;
 5. Go to System/Transactional Email&#xD;
 6. If you have a have custom emails already, edit it and insert {{block type='linccare/widget' order=$order}} where you want the Linc Care widget to appear. Then save the template and skip to step 11&#xD;
 7. If not Click the Add New Template button.&#xD;
-8. On the next page select New Order from the Template dropdown and click the Load Template button&#xD;
-9. Name the new template and insert {{block type='linccare/widget' order=$order}} where you want the Linc Care widget to appear. Then save the template.&#xD;
-10. Open the email template you just created and insert {{block type='linccare/widget' order=$order}} where you want the Linc Care widget to appear. Then save the template.&#xD;
+8. On the next page select New Order from the Template dropdown and click the Load Template button, then name the new template. &#xD;
+9. Open the email template you just created and insert {{block type='linccare/widget' order=$order}} where you want the Linc Care widget to appear. &#xD;
+10. Insert {{block type='care/recommendations' order=$order}} where you want the recommended products. Then save the template.&#xD;
 11. Repeat for any other order-based emails you want connected to Linc Care. We suggest New Order Guest&#xD;
 12. Go to System / Sales / Sales Email / Order and select the new templates for New Order Confirmation Email&#xD;
-12 Save the configuration&#xD;
+13 Save the configuration&#xD;
 &#xD;
 If you have any comments or questions, please email us at support@linccare.com</notes>
     <authors><author><name>Linc Care Development</name><user>letslincapp</user><email>apps@letslinc.com</email></author></authors>
-    <date>2014-09-10</date>
-    <time>04:40:12</time>
-    <contents><target name="mageetc"><dir name="modules"><file name="Linc_Care.xml" hash="db51f40a404065353fec8086394b8d56"/></dir></target><target name="magecommunity"><dir name="Linc"><dir name="Care"><dir name="Block"><file name="Button.php" hash="939be97c5f42658a75d1f91f7d5354f9"/><file name="Faqbutton.php" hash="4fc7c695024246b09a459c8ed86f3d68"/><file name="Widget.php" hash="f61241bcbdeba1af709ba82af3499edc"/></dir><dir name="Model"><file name="Fulfillmentobserver.php" hash="566ab6b6477bbe187db9a07459a37f8d"/><file name="Orderobserver.php" hash="7159bc2262c55d746230ac1a28402ade"/></dir><dir name="etc"><file name="config.xml" hash="050a2b0e37a993b42ee2ba1827c0493a"/><file name="system.xml" hash="351200318f9fb37020f0f3bb49887171"/><file name="system.xml~" hash="9ffb32b16e5c9c148b2a154e85b50632"/></dir><file name="readme" hash="4975174a851cc25bcb1fcdf8c3dc7f1c"/></dir></dir></target></contents>
+    <date>2014-09-16</date>
+    <time>00:53:27</time>
+    <contents><target name="mageetc"><dir name="modules"><file name="Linc_Care.xml" hash="db51f40a404065353fec8086394b8d56"/></dir></target><target name="magecommunity"><dir name="Linc"><dir name="Care"><dir name="Block"><file name="Button.php" hash="939be97c5f42658a75d1f91f7d5354f9"/><file name="Faqbutton.php" hash="4fc7c695024246b09a459c8ed86f3d68"/><file name="Recommendations.php" hash="311574efd1ab1f8c0ef741944fc5e260"/><file name="Recommendations.php~" hash="a6dd0578817a8fdf97d52441da191539"/><file name="Widget.php" hash="2f533494dfd4d2516f201940b6d410b2"/><file name="Widget.php~" hash="26cd23b81c8cd049b8c9a0b5f70a51dc"/></dir><dir name="Model"><file name="Fulfillmentobserver.php" hash="566ab6b6477bbe187db9a07459a37f8d"/><file name="Orderobserver.php" hash="7159bc2262c55d746230ac1a28402ade"/></dir><dir name="etc"><file name="config.xml" hash="050a2b0e37a993b42ee2ba1827c0493a"/><file name="system.xml" hash="351200318f9fb37020f0f3bb49887171"/><file name="system.xml~" hash="9ffb32b16e5c9c148b2a154e85b50632"/></dir><file name="readme" hash="4975174a851cc25bcb1fcdf8c3dc7f1c"/></dir></dir></target></contents>
     <compatible/>
     <dependencies><required><php><min>5.1.0</min><max>6.0.0</max></php></required></dependencies>
 </package>
