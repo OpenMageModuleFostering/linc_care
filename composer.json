@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/Linc_Care",
+    "name": "OpenMageModuleFostering\/Linc_Care",
     "type": "magento-module",
     "license": "Linc-Global-Commercial-License",
     "homepage": "",
     "description": "Linc Care streamlines a personal and contextual self-serviced customer care experience that drives loyalty.",
     "authors": [
-    {
-        "name": "Linc Care",
-        "email": "apps@letslinc.com"
-    }
-],
+        {
+            "name": "Linc Care",
+            "email": "apps@letslinc.com"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
